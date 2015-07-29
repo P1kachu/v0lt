@@ -1,6 +1,6 @@
 import socket
 
-from v0lt_utils import color
+from v0lt_utils import color, bytes_to_str
 
 
 class Netcat:
@@ -12,16 +12,20 @@ class Netcat:
             self.socket.connect((hostname, port))
         except Exception as err:
             exit(color("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err)))
-        print("Port {0}: {1}".format(color(port), self.socket.read(4096)))
+        print("Connected on port {0}".format(color(port)))
 
     def write(self, command):
         self.socket.send(bytes(command, "UTF-8"))
-        print(self.socket.recv(4096))
+        data = bytes_to_str(self.socket.recv(4096))
+        print(data)
+        return data
 
     def read(self, nb_of_recv, verbose=False):
         if verbose:
             for x in range(0, nb_of_recv):
-                print(self.socket.recv(4096))
+                data = bytes_to_str(self.socket.recv(4096))
+                print(data)
+                return data
         else:
             for x in range(0, nb_of_recv):
-                self.socket.recv(4096)
+                return bytes_to_str(self.socket.recv(4096))

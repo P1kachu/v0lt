@@ -6,7 +6,12 @@ v0lt
 v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style. 
 A lot of exercises were solved using bash scripts but Python may be more flexible, that's why.    
 
-##Installation
+##Requirements and Installation    
+Dependencies:   
+* Python3    
+  * BeautifulSoup    
+  * Requests    
+
 ```Bash
 git clone https://github.com/P1kachu/v0lt.git     
 cd v0lt    

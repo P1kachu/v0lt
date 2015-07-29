@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from requests import Session, Request
 from urllib.request import urlopen
-from v0lt_utils import color, find_nth
+from v0lt.v0lt_utils import color, find_nth
 
 
 def delete_comments(line):

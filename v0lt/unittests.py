@@ -1,10 +1,10 @@
 import unittest
-from crypto_utils import *
-from v0lt_utils import flags_gen
-from netcat import Netcat
-from telnet import Telnet
-from stack import Stack
-import shellcode
+from v0lt.crypto_utils import *
+from v0lt.v0lt_utils import flags_gen
+from v0lt.netcat import Netcat
+from v0lt.telnet import Telnet
+from v0lt.stack import Stack
+import v0lt.shellcode
 
 __author__ = 'lejay'
 

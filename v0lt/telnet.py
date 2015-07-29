@@ -1,6 +1,6 @@
 import telnetlib
 
-from v0lt_utils import color, bytes_to_str
+from v0lt.v0lt_utils import color, bytes_to_str
 
 
 class Telnet:
@@ -15,7 +15,10 @@ class Telnet:
 
     def write(self, command):
         self.tn.write(bytes(command, "UTF-8"))
-        data = bytes_to_str(self.tn.read_all())
+
+    def writeln(self, command):
+        self.tn.write(bytes(command + "\n", "UTF-8"))
+        data = bytes_to_str(self.tn.read_until("", timeout=25))
         print(data)
         return data
 

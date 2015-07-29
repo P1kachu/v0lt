@@ -1,8 +1,26 @@
 import itertools
+import random
 
 RED = "\033[31;1m"
 COLOR = "\033[34;1m"
 NONE = "\033[0m"
+
+def flags_gen(output, head_of_flag, nb_of_flags):
+    alphabet = "ABCDEFabcdef0123456789"
+    with open(output,'w') as f:
+        for i in range(nb_of_flags):
+            flag = head_of_flag + "{"
+            for i in range(64):
+                flag += alphabet[random.randint(0, 15)]
+            flag += "}\n"
+            f.write(flag)
+
+
+def find_nth(string, substring, n):
+    parts = string.split(substring, n + 1)
+    if len(parts) <= n + 1:
+        return -1
+    return len(string) - len(parts[-1]) - len(substring)
 
 
 def n_first(s, n):

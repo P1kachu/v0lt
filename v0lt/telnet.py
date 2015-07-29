@@ -9,12 +9,12 @@ class Telnet:
     def __init__(self, hostname, port):
         try:
             self.tn = telnetlib.Telnet(hostname, port)
-        except Exception:
-            exit("Could not connect telnet to {0}:{1}".format(hostname, port))
-        print("{0}: {1}".format(color("Port " + str(port)), self.tn.read_all()))
+        except Exception as err:
+            exit(color("Could not connect Telnet to {0}:{1} (error: {2})".format(hostname, port, err)))
+        print("Port {0}: {1}".format(color(port), self.tn.read_all()))
 
     def write(self, command):
-        self.tn.write(command)
+        self.tn.write(bytes(command, "UTF-8"))
         print(self.tn.read_all())
 
     def read(self, nb_of_recv, verbose=False):
@@ -23,4 +23,4 @@ class Telnet:
                 print(self.tn.read_until("\n"))
         else:
             for x in range(0, nb_of_recv):
-                print(self.tn.read_until("\n"))
+                self.tn.read_until("\n")

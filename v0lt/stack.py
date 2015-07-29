@@ -1,6 +1,6 @@
 class Stack:
     def __init__(self, verbose=False):
-        self.container = []
+        self.little_stack = []
         self.verbose = verbose
 
     def is_empty(self):
@@ -9,13 +9,13 @@ class Stack:
     def push(self, item):
         if self.verbose:
             print("<-- {0}".format(item))
-        self.container.append(item)
+        self.little_stack.append(item)
 
     def pop(self):
-        item = self.container.pop(-1)
+        item = self.little_stack.pop(-1)
         if self.verbose:
             print("--> {0}".format(item))
-        return item  # pop from the container
+        return item
 
     def size(self):
-        return len(self.container)
+        return len(self.little_stack)

@@ -1,36 +1,70 @@
-from requests import Request, Session
-import json
+from bs4 import BeautifulSoup
+from requests import Session, Request
+from urllib.request import urlopen
+from v0lt_utils import color, find_nth
 
 
-def asm_to_shellcode(asm_file):
-    with open(asm_file) as f:
-        page = f.readlines()
-        char_array = False
-        shellcode = []
-        for i, lines in enumerate(page):
-            if "\"\\x" in lines:
-                char_array = True
-            if char_array:
-                shellcode.append(lines[:lines.find("//")]) #delete comments
-            else:
-                page.remove(lines)
-        print('[%s]' % '\n'.join(map(str, page)))
+def delete_comments(line):
+    if "//" in line:
+        comment = line.find("//")
+        line = line[:comment]
+    if "/*" in line:
+        comment = line.find("/*")
+        line = line[:comment]
+    if "*/" in line:
+        comment = line.find("*/")
+        line = line[:comment]
+    return line
 
-    return asm_file
+
+def html_to_shellcode(link):
+    html = urlopen(link).read()
+    soup = BeautifulSoup(html, "html.parser")
+    for script in soup(["script", "style"]):
+        script.extract()
+    text = soup.get_text()
+    lines = (line.strip() for line in text.splitlines())
+    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+    text = '\n'.join(chunk for chunk in chunks if chunk)
+    shellcode = []
+    for i, line in enumerate(text.split("\n")):
+        if "\"\\x" in line:
+            line = delete_comments(line)
+            line = line[line.find("\"\\x"):]
+            shellcode.append(line)
+    final_shellcode = ''.join(shellcode)
+    final_shellcode = final_shellcode.replace("\"", "")
+    final_shellcode = final_shellcode.replace(";", "")
+    print(color("Shellcode: ") + format(final_shellcode))
+    return final_shellcode
+
+
+def handle_shelllist(response_text):
+    shellist = []
+    print("\n")
+    for i, line in enumerate(response_text.split("\n")):
+        architecture = line[line.find("::::") + 4:find_nth(line, "::::", 1)]
+        title = line[find_nth(line, "::::", 1) + 4:find_nth(line, "::::", 2)]
+        link = line[find_nth(line, "::::", 3) + 4:]
+        entry = "{0}:{1}".format(architecture, title)
+        shellist.append(link)
+        print("{0}: {1}".format(i, entry))
+    print("\n")
+    user_choice = 0
+    while 1:
+        user_choice = input(color("Selection: "))
+        if int(user_choice) < 0:
+            continue
+        try:
+            print("You chosed {0}".format(shellist[int(user_choice)]))
+            break
+        except Exception:
+            continue
+    return shellist[int(user_choice)]
 
 
 def is_query_success(response):
     return response.status_code // 10 == 20
-
-
-def dump_pretty_response(response):
-    if is_query_success(response):
-        try:
-            print(json.dumps(response.json(), indent=4, ensure_ascii=False))
-        except Exception:
-            print("SUCCESS (code: {0})".format(response.status_code))
-    else:
-        print("ERROR (code: {0}) - {1}".format(response.status_code, response.text))
 
 
 def get_shellcodes(*args):
@@ -45,4 +79,9 @@ def get_shellcodes(*args):
     req = Request("GET", url)
     prepped = req.prepare()
     resp = s.send(prepped, timeout=10, verify=True)
-    dump_pretty_response(resp)
+    link = ""
+    if is_query_success(resp):
+        link = handle_shelllist(resp.text)
+    else:
+        exit("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
+    return html_to_shellcode(link)

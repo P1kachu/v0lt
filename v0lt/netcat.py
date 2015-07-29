@@ -10,12 +10,12 @@ class Netcat:
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((hostname, port))
-        except Exception:
-            exit("Could not connect Netcat to {0}:{1}".format(hostname, port))
-        print("{0}: {1}".format(color("Port (2)"), self.socket.recv(4096)))
+        except Exception as err:
+            exit(color("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err)))
+        print("Port {0}: {1}".format(color(port), self.socket.read(4096)))
 
     def write(self, command):
-        self.socket.send(command)
+        self.socket.send(bytes(command, "UTF-8"))
         print(self.socket.recv(4096))
 
     def read(self, nb_of_recv, verbose=False):

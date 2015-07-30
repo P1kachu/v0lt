@@ -8,7 +8,7 @@ from v0lt.telnet import Telnet
 from v0lt.stack import Stack
 import v0lt.shellhack as shellcode
 
-__author__ = 'lejay'
+__author__ = 'P1kachu'
 
 
 class Tests(unittest.TestCase):

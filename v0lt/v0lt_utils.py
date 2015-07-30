@@ -1,5 +1,7 @@
 import itertools
-import random
+import random    
+import subprocess
+
 
 RED = "\033[31;1m"
 COLOR = "\033[34;1m"
@@ -78,3 +80,9 @@ def xor_str(s, key):
 
 def xor_hexa(h, key):
     return xor_bytes(hex_to_bytes(h), hex_to_bytes(key))
+
+def echo(to_echo, params):
+    bashCommand = "echo -{0} {1}".format(params, to_echo)
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output = process.communicate()[0]
+    return output

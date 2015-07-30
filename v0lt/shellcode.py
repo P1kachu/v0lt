@@ -35,8 +35,11 @@ def html_to_shellcode(link):
     final_shellcode = ''.join(shellcode)
     final_shellcode = final_shellcode.replace("\"", "")
     final_shellcode = final_shellcode.replace(";", "")
+    final_shellcode = final_shellcode.replace(" ", "")
+    final_shellcode = final_shellcode.replace("\t", "")
+    final_shellcode = final_shellcode.replace("\n", "")
     print(color("Shellcode: ") + format(final_shellcode))
-    return final_shellcode
+    return final_shellcode.replace("\\x", "\\\\x")
 
 
 def handle_shelllist(response_text):

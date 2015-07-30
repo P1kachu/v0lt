@@ -5,5 +5,7 @@ dist
 *.pyc
 *.egg-info
 *.sh
+*.c
 *.tmp
 __pycache__
+testing.py

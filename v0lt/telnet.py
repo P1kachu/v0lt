@@ -1,6 +1,6 @@
 import telnetlib
 
-from v0lt.v0lt_utils import color, bytes_to_str
+from v0lt.v0lt_utils import red, green, yellow, bytes_to_str
 
 
 class Telnet:
@@ -10,23 +10,19 @@ class Telnet:
         try:
             self.tn = telnetlib.Telnet(hostname, port)
         except Exception as err:
-            exit(color("Could not connect Telnet to {0}:{1} (error: {2})".format(hostname, port, err)))
-        print("Connected to port {0}".format(color(port)))
+            exit(red("Could not connect Telnet to {0}:{1} (error: {2})".format(hostname, port, err)))
+        print("Connected to port {0}".format(green(port)))
 
     def write(self, command, shellcode=False):
         if shellcode:
+            # If shellcode, convert to executable code
             command = command.replace("\\x", "")
             self.tn.write(bytearray.fromhex(command))
         else:
             self.tn.write(bytes(command, "UTF-8"))
 
-    def writeln(self, command):
-        command += "\n"
-        if shellcode:
-            command = command.replace("\\x", "")
-            self.tn.write(bytearray.fromhex(command))
-        else:
-            self.tn.write(bytes(command, "UTF-8"))
+    def writeln(self, command, shellcode=False):
+        self.write(command + "\n", shellcode)
 
     def read(self, nb_of_recv):
         data = "\n"
@@ -39,4 +35,4 @@ class Telnet:
 
     def dialogue(self, command, nb_of_recv):
         self.writeln(command)
-        return ("{0}: {1}").format(color("Answer"), self.read(nb_of_recv))
+        return "{0}: {1}".format(yellow("Answer"), self.read(nb_of_recv))

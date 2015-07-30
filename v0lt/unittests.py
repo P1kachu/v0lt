@@ -1,11 +1,12 @@
 import unittest
 from os import remove
+
 from v0lt.crypto_utils import *
 from v0lt.v0lt_utils import *
 from v0lt.netcat import Netcat
 from v0lt.telnet import Telnet
 from v0lt.stack import Stack
-import v0lt.shellcode
+import v0lt.shellcode as shellcode
 
 __author__ = 'lejay'
 
@@ -13,11 +14,11 @@ __author__ = 'lejay'
 class Tests(unittest.TestCase):
     def test_netcat(self):
         nc = Netcat("archpichu.ddns.net", 65103)
-        self.assertEqual(nc.read(1, verbose=True), "Nothing to display yet...\n")
+        self.assertEqual(nc.read(1), "Nothing to display yet...\n")
 
     def test_telnet(self):
         tl = Telnet("archpichu.ddns.net", 65103)
-        self.assertEqual(tl.read(1, verbose=True), "Nothing to display yet...\n")
+        self.assertEqual(tl.read(1), "Nothing to display yet...\n")
 
     def test_stack(self):
         stack = Stack()
@@ -42,21 +43,8 @@ class Tests(unittest.TestCase):
     def test_flag_gen(self):
         flags_gen("test.tmp", "myCTF", 10)
 
-
     def test_find_nth(self):
         self.assertEqual(find_nth("lolilol", "l", 4), 6)
-
-
-    def test_bytes_to_hex(b):
-        self.assertEqual(bytes_to_hex(b''), "41")
-
-
-    def test_hex_to_bytes(b):
-        self.assertEqual(hex_to_bytes("41"), b'')
-
-    def test_xor_bytes(b, key):
-        self.assertEqual()
-
 
 
 if __name__ == "__main__":

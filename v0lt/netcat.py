@@ -1,7 +1,6 @@
 import socket
-import subprocess
 
-from v0lt.v0lt_utils import color, bytes_to_str
+from v0lt.v0lt_utils import red, green, yellow, bytes_to_str
 
 
 class Netcat:
@@ -12,23 +11,19 @@ class Netcat:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((hostname, port))
         except Exception as err:
-            exit(color("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err)))
-        print("Connected to port {0}".format(color(port)))
+            exit(red("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err)))
+        print("Connected to port {0}".format(green(port)))
 
     def write(self, command, shellcode=False):
         if shellcode:
+            # If shellcode, convert to executable code
             command = command.replace("\\x", "")
             self.socket.send(bytearray.fromhex(command))
         else:
             self.socket.send(bytes(command, "UTF-8"))
 
     def writeln(self, command, shellcode=False):
-        command += "\n"
-        if shellcode:
-            command = command.replace("\\x", "")
-            self.socket.send(bytearray.fromhex(command))
-        else:
-            self.socket.send(bytes(command, "UTF-8"))
+        self.write(command + "\n", shellcode)
 
     def read(self, nb_of_recv):
         data = "\n"
@@ -38,10 +33,10 @@ class Netcat:
 
     def read_until(self, substring):
         data = "\n"
-        while not substring in data:
+        while substring not in data:
             data += bytes_to_str(self.socket.recv(4096))
         return data
 
     def dialogue(self, command, nb_of_recv):
         self.writeln(command)
-        return ("{0}: {1}").format(color("Answer"), self.read(nb_of_recv))
+        return "{0}: {1}".format(yellow("Answer"), self.read(nb_of_recv))

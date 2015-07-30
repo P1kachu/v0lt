@@ -14,16 +14,18 @@ class Netcat:
             exit(red("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err)))
         print("Connected to port {0}".format(green(port)))
 
-    def write(self, command, shellcode=False):
-        if shellcode:
-            # If shellcode, convert to executable code
-            command = command.replace("\\x", "")
-            self.socket.send(bytearray.fromhex(command))
-        else:
-            self.socket.send(bytes(command, "UTF-8"))
+    def write(self, command):
+        self.socket.send(bytes(command, "UTF-8"))
 
-    def writeln(self, command, shellcode=False):
-        self.write(command + "\n", shellcode)
+    def writeln(self, command):
+        self.write(command + "\n")
+
+    def shellcat(self, shellcode):
+        shellcode = shellcode.replace("\\x", "")
+        self.socket.send(bytearray.fromhex(shellcode))
+
+    def shellcatln(self, shellcode):
+        self.shellcat(shellcode + "\n")
 
     def read(self, nb_of_recv):
         data = "\n"

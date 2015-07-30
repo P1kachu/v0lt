@@ -6,7 +6,7 @@ from v0lt.v0lt_utils import *
 from v0lt.netcat import Netcat
 from v0lt.telnet import Telnet
 from v0lt.stack import Stack
-import v0lt.shellcode as shellcode
+import v0lt.shellhack as shellcode
 
 __author__ = 'lejay'
 

@@ -1,6 +1,7 @@
 import unittest
+from os import remove
 from v0lt.crypto_utils import *
-from v0lt.v0lt_utils import flags_gen
+from v0lt.v0lt_utils import *
 from v0lt.netcat import Netcat
 from v0lt.telnet import Telnet
 from v0lt.stack import Stack
@@ -35,12 +36,30 @@ class Tests(unittest.TestCase):
         deciphered = basic_ceasar(plaintext, offset=13)
         self.assertEqual(encrypted, deciphered)
 
-    # def test_get_shellcode(self):
-    #     shellcode.get_shellcodes("x86", "bin/sh")
+    def test_get_shellcode(self):
+        shellcode.get_shellcodes("x86", "bin/sh")
 
-    # def test_flag_gen(self):
-    #     flags_gen("test.tmp", "myCTF", 10)
+    def test_flag_gen(self):
+        flags_gen("test.tmp", "myCTF", 10)
+
+
+    def test_find_nth(self):
+        self.assertEqual(find_nth("lolilol", "l", 4), 6)
+
+
+    def test_bytes_to_hex(b):
+        self.assertEqual(bytes_to_hex(b''), "41")
+
+
+    def test_hex_to_bytes(b):
+        self.assertEqual(hex_to_bytes("41"), b'')
+
+    def test_xor_bytes(b, key):
+        self.assertEqual()
+
+
 
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(Tests)
     unittest.TextTestRunner().run(suite)
+    remove("*.tmp")

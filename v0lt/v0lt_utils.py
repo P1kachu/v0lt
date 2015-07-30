@@ -1,6 +1,7 @@
 import itertools
 import random    
 import subprocess
+import binascii
 
 
 RED = "\033[31;1m"
@@ -50,29 +51,28 @@ def hex_to_bytes(s):
 
 
 def str_to_bytes(s):
-    return [ord(x) for x in s]
+    return s.encode(encoding='UTF-8')
 
 
 def bytes_to_str(b):
-    return ''.join(chr(x) for x in b)
+    return b.decode(encoding='UTF-8')
 
 
 def str_to_hex(s):
-    return s.encode('hex')
+    return binascii.hexlify(b'{0}'.format(s))
 
 
 def hex_to_str(s):
-    return s.decode('hex')
+    return bytes.fromhex(s).decode('utf-8')
 
 
 def xor_bytes(b, key):
     if len(b) != len(key):
         print("len(a) != len(b)")
     if len(b) > len(key):
-        return "".join([chr(x ^ y) for (x, y) in zip(b[:len(key)], key)]).encode('hex')
+        return str_to_hex("".join([chr(x ^ y) for (x, y) in zip(b[:len(key)], key)]))
     else:
-        return "".join([chr(x ^ y) for (x, y) in zip(b, key[:len(b)])]).encode('hex')
-
+        return str_to_hex("".join([chr(x ^ y) for (x, y) in zip(b, key[:len(b)])]))
 
 def xor_str(s, key):
     return "".join(chr(ord(c) ^ ord(k)) for c, k in zip(s, itertools.cycle(key)))

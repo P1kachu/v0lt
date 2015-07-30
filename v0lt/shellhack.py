@@ -127,4 +127,4 @@ class Shellhack:
         return len(self.shellcode) / 4
 
     def pad(self):
-        return "A" * self.maximum_shellcode_length - self.shellcode_length()
+        return "A" * (self.maximum_shellcode_length - self.shellcode_length())

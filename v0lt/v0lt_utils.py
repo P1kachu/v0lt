@@ -40,10 +40,6 @@ def n_last(s, n):
     return s[n:]
 
 
-def print_debug(s):
-    print("{0}DEBUG".format(purple(s)))
-
-
 def red(s):
     return str("{0}{1}{2}".format(RED, s, NONE))
 
@@ -70,6 +66,10 @@ def cyan(s):
 
 def white(s):
     return str("{0}{1}{2}".format(WHITE, s, NONE))
+
+
+def print_debug(s):
+    print("[DEBUG] {0}".format(purple(s)))
 
 
 def bytes_to_hex(b):

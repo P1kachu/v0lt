@@ -118,3 +118,6 @@ def echo(to_echo, params):
     process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
     output = process.communicate()[0]
     return output
+
+def is_query_success(response):
+    return response.status_code // 10 == 20

@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from requests import Session, Request
 
 from bs4 import BeautifulSoup
-from v0lt.v0lt_utils import yellow, green, find_nth, is_query_success
+from v0lt.v0lt_utils import red, yellow, green, find_nth, is_query_success
 
 
 class ShellHack:
@@ -12,10 +12,14 @@ class ShellHack:
     keywords = None
     shellcode = ""
 
-    def __init__(self, maximum_length, *keywords):
+    def __init__(self, maximum_length, *keywords, shellcode=None):
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
-        self.get_shellcodes(self.keywords)
+        self.shellcode = shellcode
+        if not shellcode and not keywords:
+            exit(red("Please specify some shellcode or keywords"))
+        if shellcode == None:
+            self.get_shellcodes(self.keywords)
 
     @staticmethod
     def delete_comments(line):
@@ -124,7 +128,8 @@ class ShellHack:
         return self.html_to_shellcode(link)
 
     def shellcode_length(self):
-        return len(self.shellcode) / 4
+        return int(len(self.shellcode) / 4)
 
     def pad(self):
-        return "A" * (self.maximum_shellcode_length - self.shellcode_length())
+        pad_length = self.maximum_shellcode_length - self.shellcode_length()
+        return "A" * pad_length

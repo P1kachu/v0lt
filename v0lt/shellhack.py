@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from v0lt.v0lt_utils import yellow, green, find_nth, is_query_success
 
 
-class Shellhack:
+class ShellHack:
     length = 0
     maximum_shellcode_length = 0
     keywords = None

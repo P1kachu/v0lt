@@ -67,6 +67,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAflag{EasyPe4syL3m0nSq33zy!!}
     * Shellcode selection and download from Shell-storm repo    
     * Shellcode formater 
     * Shell{cat,net}: Sending shellcode made easy
+    * Automatic padding
 
 * Easy connection support    
     * Netcat    

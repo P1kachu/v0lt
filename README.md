@@ -21,8 +21,8 @@ sudo python3 setup.py install # sudo is required for potentially missing depende
 
 ##Demo: Shellcodes
 ```Python
->>> from v0lt import shellcode
->>> from v0lt.netcat import Netcat
+>>> from v0lt.Network.netcat import Netcat
+>>> from v0lt.Tools.shellhack import ShellHack
 >>> nc = Netcat("archpichu.ddns.net", 65102)
 Connected to port 65102
 >>> print(nc.read(1))

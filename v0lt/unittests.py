@@ -3,11 +3,10 @@ from os import remove
 
 from v0lt.utils.crypto_utils import *
 from v0lt.utils.v0lt_utils import *
-from v0lt.Network.netcat import Netcat
-from v0lt.Network.telnet import Telnet
+from v0lt.network.netcat import Netcat
+from v0lt.network.telnet import Telnet
 from v0lt.utils.stack import Stack
-import v0lt.Tools.Shellhack as Shellhack
-
+import v0lt.tools.Shellhack as Shellhack
 
 __author__ = 'P1kachu'
 

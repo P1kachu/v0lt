@@ -119,5 +119,6 @@ def echo(to_echo, params):
     output = process.communicate()[0]
     return output
 
+
 def is_query_success(response):
     return response.status_code // 10 == 20

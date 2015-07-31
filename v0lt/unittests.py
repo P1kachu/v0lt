@@ -1,7 +1,7 @@
 import unittest
 from os import remove
 
-from v0lt.crypto_utils import *
+from v0lt.utils.crypto_utils import *
 from v0lt.utils.v0lt_utils import *
 from v0lt.Network.netcat import Netcat
 from v0lt.Network.telnet import Telnet

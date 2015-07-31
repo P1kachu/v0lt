@@ -1,11 +1,12 @@
 .idea
 build
 dist
+__pycache__
 
 *.pyc
 *.egg-info
 *.sh
 *.c
 *.tmp
-__pycache__
+
 testing.py

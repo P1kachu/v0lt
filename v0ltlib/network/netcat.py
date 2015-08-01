@@ -1,6 +1,6 @@
 import socket
 
-from v0lt.utils.v0lt_utils import red, green, yellow, bytes_to_str
+from v0ltlib.utils.v0lt_utils import red, green, yellow, bytes_to_str
 
 
 class Netcat:

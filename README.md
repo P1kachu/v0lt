@@ -16,13 +16,12 @@ A lot of exercises were solved using bash scripts but Python may be more flexibl
 ```Bash
 git clone https://github.com/P1kachu/v0lt.git     
 cd v0lt    
-sudo python3 setup.py install # sudo is required for potentially missing dependencies    
+sudo python3 setup.py install # sudo is required for potentially missing dependencies
 ```
 
 ##Demo: Shellcodes
 ```Python
->>> from v0lt.network.netcat import Netcat
->>> from v0lt.tools.shellhack import ShellHack
+>>> from v0lt import *
 >>> nc = Netcat("archpichu.ddns.net", 65102)
 Connected to port 65102
 >>> print(nc.read(1))

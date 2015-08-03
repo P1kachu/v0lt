@@ -1,7 +1,0 @@
-sudo rm -rf build/ dist/ v0lt.egg-info/
-VERSION=`grep 'version=' setup.py | awk -F\' '{print $2}'`
-LAST_CHAR=${VERSION#${VERSION%?}}
-NEW_VERSION=`echo $VERSION | sed 's/[0-9]$/'"$((LAST_CHAR+1))"'/'`
-sed -i -e "s/\(version=\).*/\1\'${NEW_VERSION}\',/" setup.py
-#sudo python3 setup.py install
-#clear

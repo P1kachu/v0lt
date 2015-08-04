@@ -1,6 +1,7 @@
 import itertools
 import random
 import binascii
+import struct
 
 RED = "\033[31;1m"
 GREEN = "\033[32;1m"
@@ -114,3 +115,11 @@ def xor_hexa(h, key):
 
 def is_query_success(response):
     return response.status_code // 10 == 20
+
+
+def little_endian(string):
+    return struct.pack("<I", string)
+
+
+def big_endian(string):
+    return struct.pack(">I", string)

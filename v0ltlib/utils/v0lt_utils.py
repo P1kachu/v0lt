@@ -2,6 +2,7 @@ import itertools
 import random
 import subprocess
 import binascii
+import magic
 
 RED = "\033[31;1m"
 GREEN = "\033[32;1m"
@@ -113,6 +114,10 @@ def xor_hexa(h, key):
     return xor_bytes(hex_to_bytes(h), hex_to_bytes(key))
 
 
+def is_query_success(response):
+    return response.status_code // 10 == 20
+
+## LINUX COMMANDS ##
 def echo(to_echo, params):
     bash_command = "echo -{0} {1}".format(params, to_echo)
     process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
@@ -120,5 +125,6 @@ def echo(to_echo, params):
     return output
 
 
-def is_query_success(response):
-    return response.status_code // 10 == 20
+def file(file):
+    with magic.Magic() as m:
+        m.id_filename(file)

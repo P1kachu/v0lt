@@ -5,8 +5,8 @@ __pycache__
 
 *.pyc
 *.egg-info
-*.sh
 *.c
 *.tmp
 
 testing.py
+commit.sh

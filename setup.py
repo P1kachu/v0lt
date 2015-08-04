@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='v0lt',
-      version='1.11',
+      version='1.12',
       description='CTF oriented Toolkit',
       author='P1kachu',
       author_email='stanislas.lejay@epita.fr',
@@ -10,5 +10,6 @@ setup(name='v0lt',
       install_requires=[
           'beautifulsoup4',
           'requests',
+          'filemagic',
       ],
       zip_safe=False)

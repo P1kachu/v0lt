@@ -16,7 +16,7 @@ A lot of exercises were solved using bash scripts but Python may be more flexibl
 ```Bash
 git clone https://github.com/P1kachu/v0lt.git     
 cd v0lt    
-sudo python3 setup.py install # sudo is required for potentially missing dependencies
+[sudo] python3 setup.py install # sudo may be required for potentially missing dependencies
 ```
 
 ##Demo: Shellcodes
@@ -51,7 +51,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:
 File name too long
-P1kaCTF{EasyPe4syL3m0nSq33zy!!}
+P1kaCTF{sh3llc0de_1s_e4zY}
 ```
 ##Implemented:    
 * Crypto    

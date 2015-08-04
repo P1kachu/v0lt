@@ -6,7 +6,6 @@ if [[ $(echo $?) -ne 0 ]]; then
         brew install libmagic
     fi
 fi
-
-sudo rm -rf build/ dist/ v0lt.egg-info/
 sudo python3 setup.py install
+sudo rm -rf build/ dist/ v0lt.egg-info/
 clear

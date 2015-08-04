@@ -20,7 +20,7 @@ Used to send easily shellcodes via netcat
 .
 
 Selection: 86
-You chosed http://shell-storm.org/shellcode/files/shellcode-752.php
+Your choice: http://shell-storm.org/shellcode/files/shellcode-752.php
 Shellcode: "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62[...]"
 
 >>> nc.shellcat(shellhack.shellcode)

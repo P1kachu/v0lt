@@ -12,3 +12,4 @@ from v0ltlib.network.telnet import Telnet
 from v0ltlib.network.netcat import Netcat
 
 from v0ltlib.tools.shellhack import ShellHack
+from v0ltlib.tools.bruteforce import Bruteforce

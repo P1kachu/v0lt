@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='v0lt',
-      version='1.1.8',
+      version='1.1.9',
       description='CTF oriented Toolkit',
       author='P1kachu',
       author_email='stanislas.lejay@epita.fr',

@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='v0lt',
       version='1.2.0',
@@ -6,7 +6,7 @@ setup(name='v0lt',
       author='P1kachu',
       author_email='stanislas.lejay@epita.fr',
       license='MIT',
-      packages=['v0lt'],
+      packages=find_packages(),
       install_requires=[
           'beautifulsoup4',
           'requests',

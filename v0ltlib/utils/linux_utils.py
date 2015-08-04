@@ -11,5 +11,8 @@ def echo(to_echo, params):
 
 
 def file(file):
-    with magic.Magic() as m:
-        m.id_filename(file)
+    try:
+        with magic.Magic() as m:
+            return m.id_filename(file)
+    except Exception as e:
+        print(e)

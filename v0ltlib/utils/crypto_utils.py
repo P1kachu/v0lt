@@ -1,6 +1,7 @@
 import hashlib
 import base64
 import itertools
+from v0ltlib.utils.v0lt_utils import red
 
 
 def b64(s):
@@ -63,6 +64,30 @@ def md5(s):
 
 def xor_str(s, key):
     return "".join(chr(ord(c) ^ ord(k)) for c, k in zip(s, itertools.cycle(key)))
+
+
+def str_inv_xor(key, xored):
+    for i, char_xored in enumerate(xored):
+        found = 0
+        for char in range(32, 128):
+            if char ^ ord(key[i]) == ord(char_xored):
+                print(chr(char), end="")
+                found = 1
+                break
+        if not found:
+            print(red("X"), end="")
+
+
+def int_inv_xor(key, xored):
+    for i, char_xored in enumerate(xored):
+        found = 0
+        for char in range(32, 128):
+            if char ^ key[i] == char_xored:
+                print(chr(char), end="")
+                found = 1
+                break
+        if not found:
+            print(red("X"), end="")
 
 
 def extended_gcd(aa, bb):

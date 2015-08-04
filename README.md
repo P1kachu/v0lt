@@ -67,7 +67,8 @@ P1kaCTF{sh3llc0de_1s_e4zY}
     * Hashing functions (SHA, MD5)    
     * Bits manipulations (XOR, inverse XOR)    
     * Usual conversions (bytes, strings, hex)    
-    * RSA basics (inverse modulo, inverse power, egcd...)    
+    * RSA basics (inverse modulo, inverse power, egcd...)
+    * Bruteforcing
 
 * Shellcodes    
     * Shellcode selection and download from Shell-storm repo    

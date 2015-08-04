@@ -52,6 +52,5 @@ ldaP
 ldbP
 ldcP
 lddP
-
 >>> bf.generate_brute_strings(output="bf.tmp")
 ```

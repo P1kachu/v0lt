@@ -31,8 +31,3 @@ class Bruteforce:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
-
-
-if __name__ == "__main__":
-    bf = Bruteforce("abcd", 4, "l", "P")
-    bf.generate_brute_strings()

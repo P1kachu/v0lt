@@ -117,6 +117,7 @@ def xor_hexa(h, key):
 def is_query_success(response):
     return response.status_code // 10 == 20
 
+
 ## LINUX COMMANDS ##
 def echo(to_echo, params):
     bash_command = "echo -{0} {1}".format(params, to_echo)

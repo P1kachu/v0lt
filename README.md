@@ -58,8 +58,8 @@ P1kaCTF{EasyPe4syL3m0nSq33zy!!}
     * Base64    
     * Ceasar shift    
     * Hashing functions (SHA, MD5)    
-    * Bits manipulations (Xor)    
-    * Usual conversions (bytes/strings/hex)    
+    * Bits manipulations (XOR, inverse XOR)    
+    * Usual conversions (bytes, strings, hex)    
     * RSA basics (inverse modulo, inverse power, egcd...)    
 
 * Shellcodes    

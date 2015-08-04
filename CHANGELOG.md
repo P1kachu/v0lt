@@ -1,6 +1,6 @@
 # Changelog
 
-Only includes added major features and changes. Bugfixes and
+Only includes major features and changes. Bugfixes and
 minor changes are omitted.
 
 ## 1.0

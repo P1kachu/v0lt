@@ -1,8 +1,8 @@
 from urllib.request import urlopen
 
 from requests import Session, Request
-from bs4 import BeautifulSoup
 
+from bs4 import BeautifulSoup
 from v0ltlib.utils.v0lt_utils import red, yellow, green, find_nth, is_query_success
 
 

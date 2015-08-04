@@ -1,5 +1,6 @@
-from v0ltlib.utils.v0lt_utils import red
 import itertools
+
+from v0ltlib.utils.v0lt_utils import red
 
 
 class Bruteforce:

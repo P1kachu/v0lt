@@ -1,3 +1,5 @@
+#!/bin/bash
+
 man libmagic &> /dev/null
 if [[ $(echo $?) -ne 0 ]]; then
     if [[ "$OSTYPE" == "linux-gnu" ]]; then

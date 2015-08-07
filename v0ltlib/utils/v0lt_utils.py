@@ -117,9 +117,16 @@ def is_query_success(response):
     return response.status_code // 10 == 20
 
 
-def little_endian(string):
+def string_to_little_endian(string):
     return struct.pack("<I", string)
 
 
-def big_endian(string):
+def string_to_big_endian(string):
     return struct.pack(">I", string)
+
+
+def pow_two_align(size, alignment):
+    if ((alignment != 0) and not (alignment & (alignment - 1))):
+        return (size + alignment - 1) & ~(alignment - 1)
+    else:
+        print(red("Not a power of two"))

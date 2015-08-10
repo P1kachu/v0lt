@@ -37,7 +37,7 @@ class Bruteforce:
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     f.write(self.begin_with + ''.join(perm) + self.end_with)
             f.close()
-            
+
             print(green("File created ({0})".format(sizeof_fmt(os.path.getsize(output)))))
 
         else:

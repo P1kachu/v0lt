@@ -32,7 +32,6 @@ Easy bruteforce generator
 
 ```Python
 >>> from v0lt import *
->>> bf = Bruteforce(4096, "bin","execve")
 >>> bf = Bruteforce(charset="abcd", final_length=4, begin_with="l", end_with="P")
 >>> bf.generate_brute_strings()
 BE CAREFULL - This may generate a very large output (16 permutations here)

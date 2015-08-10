@@ -20,7 +20,6 @@ class Bruteforce:
             exit(red("Charset length should be less than length"))
 
     def generate_brute_strings(self, output=None):
-        f = None
         nb_of_lines = pow(len(self.dictionnary), self.length)
         print(red("BE CAREFULL - This may generate a very large file ({0} lines here)".format(nb_of_lines)))
         if output:

@@ -1,12 +1,14 @@
 import itertools
+import os
 
-from v0ltlib.utils.v0lt_utils import red
+from v0ltlib.utils.v0lt_utils import red, green, sizeof_fmt
 
 
 class Bruteforce:
     dictionnary = ""
     range_limit = 0
     length = 0
+    final_length = 0
     begin_with = ""
     end_with = ""
 
@@ -15,19 +17,29 @@ class Bruteforce:
         self.range_limit = len(self.dictionnary)
         self.begin_with = begin_with
         self.end_with = end_with + "\n"
-        self.length = final_length - (len(self.begin_with) + len(self.end_with) - 1)
+        self.final_length = final_length
+        self.length = self.final_length - (len(self.begin_with) + len(self.end_with) - 1)
+
         if len(charset) > final_length:
-            exit(red("Charset length should be less than length"))
+            exit(red("Charset length should be smaller than strings length"))
 
     def generate_brute_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
-        print(red("BE CAREFULL - This may generate a very large file ({0} lines here)".format(nb_of_lines)))
+        print(red("BE CAREFULL - This may generate a very large file "), end="")
+        print("({0} lines here +~ {1})".format(nb_of_lines, sizeof_fmt((self.final_length + 1) * nb_of_lines)))
         if output:
             f = open(output, "w")
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     f.write(self.begin_with + ''.join(perm) + self.end_with)
+            f.close()
+            print(green("File created ({0})".format(sizeof_fmt(os.path.getsize(output)))))
         else:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
+
+
+if __name__ == "__main__":
+    bf = Bruteforce("abcd5", 13, "l", "P")
+    bf.generate_brute_strings(output="bf.tmp")

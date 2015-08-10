@@ -14,20 +14,7 @@ WHITE = "\033[37;1m"
 NONE = "\033[0m"
 
 
-def flags_gen(output, head_of_flag, nb_of_flags):
-    # Flag generator
-    flag_size = 64
-    alphabet = "ABCDEFabcdef0123456789"
-
-    with open(output, 'w') as f:
-        for i in range(nb_of_flags):
-            flag = head_of_flag + "{"
-            for j in range(flag_size):
-                flag += alphabet[random.randint(0, len(alphabet))]
-            flag += "}\n"
-            f.write(flag)
-
-
+# String utils
 def find_nth(string, substring, n):
     parts = string.split(substring, n + 1)
     if len(parts) <= n + 1:
@@ -35,6 +22,15 @@ def find_nth(string, substring, n):
     return len(string) - len(parts[-1]) - len(substring)
 
 
+def n_first(s, n):
+    return s[:n]
+
+
+def n_last(s, n):
+    return s[n:]
+
+
+# Output Formatting
 def sizeof_fmt(num, suffix='b', rounded=False):
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
         if abs(num) < 1024.0:
@@ -45,14 +41,6 @@ def sizeof_fmt(num, suffix='b', rounded=False):
 
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Yi', suffix)
-
-
-def n_first(s, n):
-    return s[:n]
-
-
-def n_last(s, n):
-    return s[n:]
 
 
 def red(s):
@@ -83,10 +71,11 @@ def white(s):
     return str("{0}{1}{2}".format(WHITE, s, NONE))
 
 
-def print_debug(s):
+def debug(s):
     print("[DEBUG] {0}".format(purple(s)))
 
 
+# Conversions
 def bytes_to_hex(b):
     return hex_to_str(bytes_to_str(b))
 
@@ -111,6 +100,40 @@ def hex_to_str(s):
     return bytes.fromhex(s).decode('utf-8')
 
 
+def hex_to_little_endian(*args):
+    return struct.pack("<{0}I".format(len(args)), *args)
+
+
+def hex_to_big_endian(*args):
+    return struct.pack(">{0}I".format(len(args)), *args)
+
+
+# Random Utils
+def flags_gen(output, head_of_flag, nb_of_flags):
+    # Flag generator
+    flag_size = 64
+    alphabet = "ABCDEFabcdef0123456789"
+
+    with open(output, 'w') as f:
+        for i in range(nb_of_flags):
+            flag = head_of_flag + "{"
+            for j in range(flag_size):
+                flag += alphabet[random.randint(0, len(alphabet))]
+            flag += "}\n"
+            f.write(flag)
+
+
+def pow_two_align(size, alignment):
+    if alignment != 0 and not alignment & (alignment - 1):
+        return (size + alignment - 1) & ~(alignment - 1)
+    else:
+        print(red("Not a power of two"))
+
+
+def is_query_success(response):
+    return response.status_code // 10 == 20
+
+
 def xor_bytes(b, key):
     if len(b) != len(key):
         print("len(a) != len(b)")
@@ -126,22 +149,3 @@ def xor_str(s, key):
 
 def xor_hexa(h, key):
     return xor_bytes(hex_to_bytes(h), hex_to_bytes(key))
-
-
-def is_query_success(response):
-    return response.status_code // 10 == 20
-
-
-def hex_to_little_endian(*args):
-    return struct.pack("<{0}I".format(len(args)), *args)
-
-
-def hex_to_big_endian(*args):
-    return struct.pack(">{0}I".format(len(args)), *args)
-
-
-def pow_two_align(size, alignment):
-    if alignment != 0 and not alignment & (alignment - 1):
-        return (size + alignment - 1) & ~(alignment - 1)
-    else:
-        print(red("Not a power of two"))

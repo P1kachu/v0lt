@@ -35,10 +35,14 @@ def find_nth(string, substring, n):
     return len(string) - len(parts[-1]) - len(substring)
 
 
-def sizeof_fmt(num, suffix='b'):
+def sizeof_fmt(num, suffix='b', rounded=False):
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
         if abs(num) < 1024.0:
-            return "%3.1f%s%s" % (num, unit, suffix)
+            if rounded:
+                return "%d%s%s" % (num, unit, suffix)
+            else:
+                return "%3.1f%s%s" % (num, unit, suffix)
+
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Yi', suffix)
 

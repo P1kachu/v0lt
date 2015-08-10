@@ -25,8 +25,11 @@ class Bruteforce:
 
     def generate_brute_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
+        approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
+
         print(red("BE CAREFULL - This may generate a very large file "), end="")
-        print("({0} lines here +~ {1})".format(nb_of_lines, sizeof_fmt((self.final_length + 1) * nb_of_lines)))
+        print("({0} permutations here ~ {1})".format(nb_of_lines, approx_size))
+
         if output:
             f = open(output, "w")
             for n in range(self.length, self.length + 1):
@@ -34,6 +37,7 @@ class Bruteforce:
                     f.write(self.begin_with + ''.join(perm) + self.end_with)
             f.close()
             print(green("File created ({0})".format(sizeof_fmt(os.path.getsize(output)))))
+
         else:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
@@ -41,5 +45,5 @@ class Bruteforce:
 
 
 if __name__ == "__main__":
-    bf = Bruteforce("abcd5", 13, "l", "P")
+    bf = Bruteforce("abcde", 12, "l", "P")
     bf.generate_brute_strings(output="bf.tmp")

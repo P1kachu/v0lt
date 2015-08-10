@@ -18,7 +18,7 @@ class ShellHack:
         self.shellcode = shellcode
         if not shellcode and not keywords:
             exit(red("Please specify some shellcode or keywords"))
-        if shellcode == None:
+        if shellcode is None:
             self.get_shellcodes(self.keywords)
 
     @staticmethod

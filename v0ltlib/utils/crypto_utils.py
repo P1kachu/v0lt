@@ -128,7 +128,7 @@ def bitlength(x):
 
 def isqrt(n):
     if n < 0:
-        raise ValueError('square root not defined for negative numbers')
+        exit(red("square root not defined for negative numbers"))
 
     if n == 0:
         return 0

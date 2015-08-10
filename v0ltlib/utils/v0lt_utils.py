@@ -3,6 +3,7 @@ import random
 import binascii
 import struct
 
+# Colors
 RED = "\033[31;1m"
 GREEN = "\033[32;1m"
 YELLOW = "\033[33;1m"

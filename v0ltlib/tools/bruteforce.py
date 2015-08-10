@@ -27,10 +27,11 @@ class Bruteforce:
         nb_of_lines = pow(len(self.dictionnary), self.length)
         approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
 
-        print(red("BE CAREFULL - This may generate a very large file "), end="")
-        print("({0} permutations here ~ {1})".format(nb_of_lines, approx_size))
-
         if output:
+            approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
+
+            print(red("BE CAREFULL - This may generate a very large file "), end="")
+            print("({0} permutations here ~ {1})".format(nb_of_lines, approx_size))
             f = open(output, "w")
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
@@ -39,11 +40,15 @@ class Bruteforce:
             print(green("File created ({0})".format(sizeof_fmt(os.path.getsize(output)))))
 
         else:
+            print(red("BE CAREFULL - This may generate a very large output "), end="")
+            print("({0} permutations here)".format(nb_of_lines))
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
 
 
 if __name__ == "__main__":
-    bf = Bruteforce("abcde", 12, "l", "P")
+    bf = Bruteforce(charset="abcd", final_length=4, begin_with="l", end_with="P")
+    bf.generate_brute_strings()
+    bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
     bf.generate_brute_strings(output="bf.tmp")

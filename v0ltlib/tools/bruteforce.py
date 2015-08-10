@@ -25,7 +25,6 @@ class Bruteforce:
 
     def generate_brute_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
-        approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
 
         if output:
             approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
@@ -45,10 +44,3 @@ class Bruteforce:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
-
-
-if __name__ == "__main__":
-    bf = Bruteforce(charset="abcd", final_length=4, begin_with="l", end_with="P")
-    bf.generate_brute_strings()
-    bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
-    bf.generate_brute_strings(output="bf.tmp")

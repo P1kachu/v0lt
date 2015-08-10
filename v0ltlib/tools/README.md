@@ -51,6 +51,7 @@ ldaP
 ldbP
 ldcP
 lddP
+
 >>> bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
 >>> bf.generate_brute_strings(output="bf.tmp")
 BE CAREFULL - This may generate a very large file (1679616 permutations here ~ 17Mb)

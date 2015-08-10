@@ -15,11 +15,13 @@ NONE = "\033[0m"
 
 def flags_gen(output, head_of_flag, nb_of_flags):
     # Flag generator
+    flag_size = 64
     alphabet = "ABCDEFabcdef0123456789"
+
     with open(output, 'w') as f:
         for i in range(nb_of_flags):
             flag = head_of_flag + "{"
-            for j in range(64):
+            for j in range(flag_size):
                 flag += alphabet[random.randint(0, len(alphabet))]
             flag += "}\n"
             f.write(flag)

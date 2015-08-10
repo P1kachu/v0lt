@@ -23,7 +23,7 @@ class Bruteforce:
         if len(charset) > final_length:
             exit(red("Charset length should be smaller than strings length"))
 
-    def generate_brute_strings(self, output=None):
+    def generate_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
 
         if output:
@@ -31,16 +31,19 @@ class Bruteforce:
 
             print(red("BE CAREFULL - This may generate a very large file "), end="")
             print("({0} permutations here ~ {1})".format(nb_of_lines, approx_size))
+
             f = open(output, "w")
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     f.write(self.begin_with + ''.join(perm) + self.end_with)
             f.close()
+            
             print(green("File created ({0})".format(sizeof_fmt(os.path.getsize(output)))))
 
         else:
             print(red("BE CAREFULL - This may generate a very large output "), end="")
             print("({0} permutations here)".format(nb_of_lines))
+
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")

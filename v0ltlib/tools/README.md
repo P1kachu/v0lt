@@ -34,7 +34,8 @@ Easy bruteforce generator
 >>> from v0lt import *
 >>> bf = Bruteforce(charset="abcd", final_length=4, begin_with="l", end_with="P")
 >>> bf.generate_strings()
-BE CAREFULL - This may generate a very large output (16 permutations here)
+[ WARNING ] This may generate a very large output
+(16 permutations here)
 laaP
 labP
 lacP
@@ -54,6 +55,8 @@ lddP
 
 >>> bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
 >>> bf.generate_strings(output="bf.tmp")
-BE CAREFULL - This may generate a very large file (1679616 permutations here ~ 17Mb)
-File created (19.2Mb)
+[ WARNING ] This may generate a very large file
+(1679616 permutations here ~ 17Mb)
+[ DEBUG   ] Bruteforcing...
+[ SUCCESS ] File created (19.2Mb)
 ```

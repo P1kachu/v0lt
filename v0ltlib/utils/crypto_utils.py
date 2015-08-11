@@ -2,7 +2,7 @@ import hashlib
 import base64
 import itertools
 
-from v0ltlib.utils.v0lt_utils import red
+from v0ltlib.utils.v0lt_utils import red, error
 
 
 def b64(s):
@@ -128,7 +128,7 @@ def bitlength(x):
 
 def isqrt(n):
     if n < 0:
-        exit(red("square root not defined for negative numbers"))
+        exit(error("square root not defined for negative numbers"))
 
     if n == 0:
         return 0

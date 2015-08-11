@@ -1,6 +1,6 @@
 import telnetlib
 
-from v0ltlib.utils.v0lt_utils import red, green, yellow, bytes_to_str
+from v0ltlib.utils.v0lt_utils import error, green, yellow, bytes_to_str
 
 
 class Telnet:
@@ -10,7 +10,7 @@ class Telnet:
         try:
             self.tn = telnetlib.Telnet(hostname, port)
         except Exception as err:
-            exit(red("Could not connect Telnet to {0}:{1} (error: {2})".format(hostname, port, err)))
+            error("Could not connect Telnet to {0}:{1} (error: {2})".format(hostname, port, err))
         print("Connected to port {0}".format(green(port)))
 
     def write(self, command):

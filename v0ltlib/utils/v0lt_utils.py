@@ -13,6 +13,8 @@ CYAN = "\033[36;1m"
 WHITE = "\033[37;1m"
 NONE = "\033[0m"
 
+config = { "is_debug":True }
+
 
 # String utils
 def find_nth(string, substring, n):
@@ -34,11 +36,7 @@ def n_last(s, n):
 def sizeof_fmt(num, suffix='b', rounded=False):
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
         if abs(num) < 1024.0:
-            if rounded:
-                return "%d%s%s" % (num, unit, suffix)
-            else:
-                return "%3.1f%s%s" % (num, unit, suffix)
-
+            return "%d%s%s" % (num, unit, suffix) if rounded else "%3.1f%s%s" % (num, unit, suffix)
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Yi', suffix)
 
@@ -72,7 +70,20 @@ def white(s):
 
 
 def debug(s):
-    print("[DEBUG] {0}".format(purple(s)))
+    if config.get("is_debug"):
+        print("{0} {1}".format(purple("[ DEBUG   ]"), s))
+
+
+def warning(s):
+    print("{0} {1}".format(yellow("[ WARNING ]"), s))
+
+
+def error(s):
+    print("{0} {1}".format(red("[ ERROR   ]"), s))
+
+
+def success(s):
+    print("{0} {1}".format(green("[ SUCCESS ]"), s))
 
 
 # Conversions
@@ -127,7 +138,7 @@ def pow_two_align(size, alignment):
     if alignment != 0 and not alignment & (alignment - 1):
         return (size + alignment - 1) & ~(alignment - 1)
     else:
-        print(red("Not a power of two"))
+        error("Not a power of two")
 
 
 def is_query_success(response):
@@ -136,7 +147,7 @@ def is_query_success(response):
 
 def xor_bytes(b, key):
     if len(b) != len(key):
-        print("len(a) != len(b)")
+        warning("len(a) != len(b)")
     if len(b) > len(key):
         return str_to_hex("".join([chr(x ^ y) for (x, y) in zip(b[:len(key)], key)]))
     else:

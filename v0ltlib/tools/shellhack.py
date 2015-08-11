@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from requests import Session, Request
 
 from bs4 import BeautifulSoup
-from v0ltlib.utils.v0lt_utils import red, yellow, green, find_nth, is_query_success
+from v0ltlib.utils.v0lt_utils import error, yellow, green, find_nth, is_query_success
 
 
 class ShellHack:
@@ -17,7 +17,7 @@ class ShellHack:
         self.keywords = keywords
         self.shellcode = shellcode
         if not shellcode and not keywords:
-            exit(red("Please specify some shellcode or keywords"))
+            exit(error("Please specify some shellcode or keywords"))
         if shellcode is None:
             self.get_shellcodes(self.keywords)
 

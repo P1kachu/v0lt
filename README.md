@@ -34,6 +34,7 @@ Connected to port 65102
 >>> print(nc.read(1))
 GIVE ME SHELLCODZ
 >>> shellhack = ShellHack(4096, "bin","execve")
+>>> shellhack.get_shellcodes(shellhack.keywords)
 
 .
 .

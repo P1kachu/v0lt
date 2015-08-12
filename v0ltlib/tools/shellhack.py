@@ -94,7 +94,7 @@ class ShellHack:
             try:
                 print("Your choice: {0}".format(shellist[int(user_choice)]))
                 break
-            except Exception:
+            except IndexError:
                 continue
 
         # Return selected shellcode

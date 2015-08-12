@@ -30,7 +30,7 @@ class Bruteforce:
             approx_size = sizeof_fmt((self.final_length + 1) * nb_of_lines, rounded=True)
 
             warning("This may generate a very large file")
-            print("({0} permutations here ~ {1})".format(nb_of_lines, approx_size))
+            print("({0} permutations here == more than {1})".format(nb_of_lines, approx_size))
 
             f = open(output, "w")
             debug("Bruteforcing...")
@@ -47,10 +47,3 @@ class Bruteforce:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
-
-
-if __name__ == "__main__":
-    bf = Bruteforce(charset="abcd", final_length=3, begin_with="l", end_with="P")
-    bf.generate_strings()
-    bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
-    bf.generate_strings(output="bf.tmp")

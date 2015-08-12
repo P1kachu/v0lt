@@ -18,8 +18,6 @@ class ShellHack:
         self.shellcode = shellcode
         if not shellcode and not keywords:
             exit(error("Please specify some shellcode or keywords"))
-        if shellcode is None:
-            self.get_shellcodes(self.keywords)
 
     @staticmethod
     def delete_comments(line):

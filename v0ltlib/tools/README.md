@@ -7,6 +7,7 @@ Used to send easily shellcodes via netcat
 ```Python
 >>> from v0lt import *
 >>> shellhack = ShellHack(4096, "bin","execve")
+>>> shellhack.get_shellcodes(shellhack.keywords)
 
 .
 .
@@ -56,7 +57,7 @@ lddP
 >>> bf = Bruteforce(charset="abcdef", final_length=10, begin_with="l", end_with="P")
 >>> bf.generate_strings(output="bf.tmp")
 [ WARNING ] This may generate a very large file
-(1679616 permutations here ~ 17Mb)
+(1679616 permutations here == more than 17Mb)
 [ DEBUG   ] Bruteforcing...
 [ SUCCESS ] File created (19.2Mb)
 ```

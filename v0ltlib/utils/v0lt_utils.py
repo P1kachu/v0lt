@@ -13,7 +13,7 @@ CYAN = "\033[36;1m"
 WHITE = "\033[37;1m"
 NONE = "\033[0m"
 
-config = { "is_debug":True }
+config = {"is_debug": True}
 
 
 # String utils

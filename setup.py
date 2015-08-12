@@ -11,5 +11,6 @@ setup(name='v0lt',
           'beautifulsoup4',
           'requests',
           'filemagic',
+          'hexdump'
       ],
       zip_safe=False)

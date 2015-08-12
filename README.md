@@ -82,3 +82,27 @@ P1kaCTF{sh3llc0de_1s_e4zY}
     * Telnet    
 
 And more
+
+
+# Changelog
+
+Only includes major features and changes. Bugfixes and
+minor changes are omitted.
+
+## 1.2
+
+- Lots of documentation/bugs/framework fixes
+- Added bruteforce
+- Added linux utils
+- Added hexeditor
+- Shellhack fixes
+- Alert messages
+
+## 1.0
+
+- Lots of documentation fixes
+- Lots of bugfixes
+- Added shellhack (shellcodes stuff)
+- Added crypto utils
+- Added network utils
+- Fixed project tree

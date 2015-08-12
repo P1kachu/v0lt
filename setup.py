@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='v0lt',
-      version='1.2.9',
+      version='1.2.95',
       description='CTF oriented Toolkit',
       author='P1kachu',
       author_email='stanislas.lejay@epita.fr',

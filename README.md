@@ -94,7 +94,7 @@ minor changes are omitted.
 - Lots of documentation/bugs/framework fixes
 - Added bruteforce
 - Added linux utils
-- Added hexeditor
+- Began hexeditor
 - Shellhack fixes
 - Alert messages
 

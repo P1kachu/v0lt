@@ -29,7 +29,7 @@ class Telnet:
     def read(self, nb_of_recv=1):
         data = "\n"
         for x in range(0, nb_of_recv):
-            data = bytes_to_str(self.tn.read_some())
+            data += bytes_to_str(self.tn.read_some())
         return data
 
     def read_until(self, substring):

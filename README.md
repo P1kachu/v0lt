@@ -21,11 +21,6 @@ A lot of exercises were solved using bash scripts but Python may be more flexibl
 git clone https://github.com/P1kachu/v0lt.git     
 cd v0lt    
 [sudo] python3 setup.py install # sudo is required for potentially missing dependencies
-
-# for V0lt and dependencies install
-git clone https://github.com/P1kachu/v0lt.git     
-cd v0lt    
-chmod +x install.sh && ./install.sh
 ```
 
 ##Demo: Shellcodes

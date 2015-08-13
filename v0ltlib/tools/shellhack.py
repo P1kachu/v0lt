@@ -106,7 +106,7 @@ class ShellHack:
         # Return selected shellcode
         return shellist[int(user_choice)]
 
-    def get_shellcodes(self, *args):
+    def get_shellcodes(self, args):
         url = "http://shell-storm.org/api/?s="
 
         # Craft URL with parameters

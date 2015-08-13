@@ -1,5 +1,4 @@
 import unittest
-from os import remove
 from v0lt import *
 
 __author__ = 'P1kachu'

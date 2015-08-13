@@ -13,6 +13,7 @@ class ShellHack:
     shellcode = ""
 
     def __init__(self, maximum_length, *keywords, shellcode=None):
+        print(green(keywords))
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode

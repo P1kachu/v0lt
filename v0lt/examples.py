@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(encrypted, deciphered)
 
     def test_get_shellcode(self):
-        sh = ShellHack(30, "x86", "bin/sh")
+        sh = ShellHack(70, "x86", "bin/sh")
         sh.get_shellcodes(sh.keywords)
 
     def test_flag_gen(self):

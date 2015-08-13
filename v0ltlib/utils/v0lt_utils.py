@@ -129,7 +129,7 @@ def flags_gen(output, head_of_flag, nb_of_flags):
         for i in range(nb_of_flags):
             flag = head_of_flag + "{"
             for j in range(flag_size):
-                flag += alphabet[random.randint(0, len(alphabet))]
+                flag += alphabet[random.randint(0, len(alphabet) - 1)]
             flag += "}\n"
             f.write(flag)
 

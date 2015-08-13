@@ -13,7 +13,6 @@ class ShellHack:
     shellcode = ""
 
     def __init__(self, maximum_length, *keywords, shellcode=None):
-        print(green(keywords))
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode
@@ -71,7 +70,13 @@ class ShellHack:
     def handle_shelllist(response_text):
         shellist = []
         print("\n")
+
+        if len(response_text.split("\n")) < 2:
+            error("No shellcode found :(")
+            return None
+
         for i, line in enumerate(response_text.split("\n")):
+
             # Get shellcode architecture
             architecture = line[line.find("::::") + 4:find_nth(line, "::::", 1)]
 
@@ -124,7 +129,7 @@ class ShellHack:
             exit("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
 
         # Get Shellcode
-        return self.html_to_shellcode(link)
+        return self.html_to_shellcode(link) if link else link
 
     def shellcode_length(self):
         return int(len(self.shellcode) / 4)

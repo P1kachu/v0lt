@@ -1,15 +1,6 @@
 import unittest
 from os import remove
-
-from v0ltlib.utils.stack import Stack
-from v0ltlib.utils.v0lt_utils import *
-from v0ltlib.utils.crypto_utils import *
-
-from v0ltlib.network.telnet import Telnet
-from v0ltlib.network.netcat import Netcat
-
-from v0ltlib.tools.shellhack import ShellHack
-from v0ltlib.tools.bruteforce import Bruteforce
+from v0lt import *
 
 __author__ = 'P1kachu'
 

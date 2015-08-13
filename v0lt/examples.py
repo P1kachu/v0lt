@@ -17,11 +17,11 @@ __author__ = 'P1kachu'
 class Tests(unittest.TestCase):
     def test_netcat(self):
         nc = Netcat("archpichu.ddns.net", 65103)
-        self.assertEqual(nc.read(1), "Nothing to display yet...\n")
+        self.assertEqual(nc.read(), "\nNothing to display yet...\n")
 
     def test_telnet(self):
         tl = Telnet("archpichu.ddns.net", 65103)
-        self.assertEqual(tl.read(1), "Nothing to display yet...\n")
+        self.assertEqual(tl.read(), "\nNothing to display yet...\n")
 
     def test_stack(self):
         stack = Stack()
@@ -48,7 +48,8 @@ class Tests(unittest.TestCase):
         flags_gen("flags.tmp", "P1ka", 10)
 
     def test_find_nth(self):
-        self.assertEqual(find_nth("lolilol", "l", 4), 6)
+        self.assertEqual(find_nth("lolilol", "l", 3), 6)
+        self.assertEqual(find_nth("lolilol", "l", 4), -1)
 
     def brute(self):
         bf = Bruteforce(charset="abcd", final_length=5, begin_with="l", end_with="P")
@@ -60,7 +61,8 @@ class Tests(unittest.TestCase):
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(Tests)
     unittest.TextTestRunner().run(suite)
-    input(prompt="Press any key to delete .tmp files")
+    print("Press any key to delete .tmp files")
+    input()
     try:
         remove("*.tmp")
     except Exception as e:

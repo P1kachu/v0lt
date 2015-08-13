@@ -72,7 +72,7 @@ class ShellHack:
         print("\n")
 
         if len(response_text.split("\n")) < 2:
-            error("No shellcode found :(")
+            error("No shellcode found for these parameters.")
             return None
 
         for i, line in enumerate(response_text.split("\n")):

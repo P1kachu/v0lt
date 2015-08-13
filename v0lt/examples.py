@@ -52,9 +52,3 @@ class Tests(unittest.TestCase):
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(Tests)
     unittest.TextTestRunner().run(suite)
-    print("Press any key to delete .tmp files")
-    input()
-    try:
-        remove("*.tmp")
-    except Exception as e:
-        print(e)

@@ -27,7 +27,7 @@ class Netcat:
     def shellcatln(self, shellcode):
         self.shellcat(shellcode + "\n")
 
-    def read(self, nb_of_recv):
+    def read(self, nb_of_recv=1):
         data = "\n"
         for x in range(0, nb_of_recv):
             data += bytes_to_str(self.socket.recv(4096))
@@ -39,6 +39,6 @@ class Netcat:
             data += bytes_to_str(self.socket.recv(4096))
         return data
 
-    def dialogue(self, command, nb_of_recv):
+    def dialogue(self, command, nb_of_recv=1):
         self.writeln(command)
         return "{0}: {1}".format(yellow("Answer"), self.read(nb_of_recv))

@@ -12,6 +12,8 @@ A lot of exercises were solved using bash scripts but Python may be more flexibl
 * Python3    
   * BeautifulSoup    
   * Requests    
+  * filemagic    
+  * hexdump    
 
 ####Installation:   
 ```Bash
@@ -31,7 +33,7 @@ chmod +x install.sh && ./install.sh
 >>> from v0lt import *
 >>> nc = Netcat("archpichu.ddns.net", 65102)
 Connected to port 65102
->>> print(nc.read(1))
+>>> print(nc.read())
 GIVE ME SHELLCODZ
 >>> shellhack = ShellHack(4096, "bin","execve")
 >>> shellhack.get_shellcodes(shellhack.keywords)

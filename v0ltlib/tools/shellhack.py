@@ -121,6 +121,7 @@ class ShellHack:
         req = Request("GET", url)
         prepped = req.prepare()
         s = Session()
+        print(prepped.url)
         resp = s.send(prepped, timeout=10, verify=True)
         link = ""
         if is_query_success(resp):

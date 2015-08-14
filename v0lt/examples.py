@@ -31,6 +31,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(encrypted, deciphered)
 
     def test_get_shellcode(self):
+        sh = ShellHack(70, "/bin/lol")
+        sh.get_shellcodes(sh.keywords)
         sh = ShellHack(70, "/bin/sh")
         sh.get_shellcodes(sh.keywords)
 
@@ -46,6 +48,11 @@ class Tests(unittest.TestCase):
         bf.generate_strings()
         bf = Bruteforce(charset="abcdef", final_length=12, begin_with="l", end_with="P")
         bf.generate_strings(output="bf.tmp")
+
+    def test_hex(self):
+        he = Hexeditor()
+        he.dump_file("setup.py")
+        he.save_file("save.tmp")
 
 
 if __name__ == "__main__":

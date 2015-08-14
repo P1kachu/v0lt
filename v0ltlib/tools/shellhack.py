@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from requests import Session, Request
 
 from bs4 import BeautifulSoup
-from v0ltlib.utils.v0lt_utils import error, yellow, green, find_nth, is_query_success
+from v0ltlib.utils.v0lt_utils import error, yellow, cyan, find_nth, is_query_success
 
 
 class ShellHack:
@@ -60,7 +60,7 @@ class ShellHack:
         final_shellcode = final_shellcode.replace(" ", "")
         final_shellcode = final_shellcode.replace("\t", "")
         final_shellcode = final_shellcode.replace("\n", "")
-        print(green("Shellcode: ") + format(final_shellcode))
+        print("{0} {1}\n".format(yellow("Shellcode:"), final_shellcode))
 
         # Return shellcode as string, not bytes
         self.shellcode = final_shellcode.replace("\\x", "\\\\x")
@@ -68,15 +68,15 @@ class ShellHack:
 
     @staticmethod
     def handle_shelllist(response_text):
+        response_text_list = [x for x in response_text.split("\n") if x]
         shellist = []
         print("\n")
 
-        if len(response_text.split("\n")) < 2:
+        if len(response_text_list) < 1:
             error("No shellcode found for these parameters.")
             return None
 
-        for i, line in enumerate(response_text.split("\n")):
-
+        for i, line in enumerate(response_text_list):
             # Get shellcode architecture
             architecture = line[line.find("::::") + 4:find_nth(line, "::::", 1)]
 
@@ -87,11 +87,10 @@ class ShellHack:
             link = line[find_nth(line, "::::", 3) + 4:]
 
             # Add to list
-            entry = "{0}:{1}".format(architecture, title)
+            entry = "({0}) {1}".format(architecture, cyan(title))
             shellist.append(link)
             print("{0}: {1}".format(i, entry))
 
-        print("\n")
         user_choice = 0
         while 1:
             user_choice = input(yellow("Selection: "))
@@ -121,7 +120,6 @@ class ShellHack:
         req = Request("GET", url)
         prepped = req.prepare()
         s = Session()
-        print(prepped.url)
         resp = s.send(prepped, timeout=10, verify=True)
         link = ""
         if is_query_success(resp):

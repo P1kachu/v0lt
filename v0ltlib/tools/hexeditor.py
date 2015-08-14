@@ -37,15 +37,31 @@ class Hexeditor:
 
                     actual_line = str_to_bytes("")
                     chunk_counter = 0
-                    
+
         return self.bytes_dump
 
     def dump_string(self, bytes_string):
         return hexdump.hexdump(bytes_string, "return")
 
-    def save_file(self, file_name):
+    def save_file_as_hex(self, file_name):
         try:
             f = open(file_name, "w")
-            f.write(bytes_to_str(hexdump.restore(self.bytes_dump)))
+            f.write(self.bytes_dump)
+        except FileNotFoundError as e:
+            debug(e)
+
+    def restore_file(self, file_name, source=None):
+        to_restore = ''
+        if source:
+            f = open(source, "r")
+            to_restore = f.read()
+            f.close()
+        else:
+            to_restore = self.bytes_dump
+
+        try:
+            f = open(file_name, "w")
+            f.write(bytes_to_str(hexdump.restore(to_restore)))
+            f.close()
         except FileNotFoundError as e:
             debug(e)

@@ -52,7 +52,9 @@ class Tests(unittest.TestCase):
     def test_hex(self):
         he = Hexeditor()
         he.dump_file("setup.py")
-        he.save_file("save.tmp")
+        he.save_file_as_hex("save.tmp")
+        he.restore_file("test1.tmp")
+        he.restore_file("test2.tmp", "save.tmp")
 
 
 if __name__ == "__main__":

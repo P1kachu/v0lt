@@ -86,6 +86,11 @@ And more
 Only includes major features and changes. Bugfixes and
 minor changes are omitted.
 
+## 1.3
+
+- Lots of fixes again
+- Hexeditor on its way
+
 ## 1.2
 
 - Lots of documentation/bugs/framework fixes

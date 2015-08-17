@@ -3,7 +3,7 @@
 v0lt
 ====
 
-"I like it. Simple. Easy to remember."
+"I like it. Simple. Easy to remember."    
 v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style.
 A lot of exercises were solved using bash scripts but Python may be more flexible, that's why.    
 

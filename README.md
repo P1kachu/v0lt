@@ -63,7 +63,7 @@ P1kaCTF{sh3llc0de_1s_e4zY}
     * Bits manipulations (XOR, inverse XOR)    
     * Usual conversions (bytes, strings, hex)    
     * RSA basics (inverse modulo, inverse power, egcd...)
-    * Bruteforcing
+    * Bruteforcing (Dictionnary, custom word)
 
 * Shellcodes    
     * Shellcode selection and download from Shell-storm repo    

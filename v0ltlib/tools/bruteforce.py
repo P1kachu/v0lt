@@ -59,6 +59,6 @@ def nix_basic_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
         to_test = crypt.crypt(word, salt)
         if to_test == encrypted_pass:
             success("Password corresponding to {0} is {1}.".format(encrypted_pass, to_test))
-            return 0
+            return to_test
     fail("Password not found.")
-    return -1
+    return None

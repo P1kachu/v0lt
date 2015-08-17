@@ -3,7 +3,8 @@
 v0lt
 ====
 
-v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style. 
+"I like it. Simple. Easy to remember."
+v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style.
 A lot of exercises were solved using bash scripts but Python may be more flexible, that's why.    
 
 ##Requirements and Installation    
@@ -89,7 +90,7 @@ minor changes are omitted.
 ## 1.3
 
 - Lots of fixes again
-- Hexeditor on its way
+- Hexeditor (Dump/Rewrite files)
 
 ## 1.2
 

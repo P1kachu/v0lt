@@ -2,7 +2,7 @@ import itertools
 import os
 import crypt
 
-from v0ltlib.utils.v0lt_utils import error, warning, debug, success, sizeof_fmt
+from v0ltlib.utils.v0lt_utils import fail, warning, debug, success, sizeof_fmt
 
 
 class Bruteforce:
@@ -22,7 +22,7 @@ class Bruteforce:
         self.length = self.final_length - (len(self.begin_with) + len(self.end_with) - 1)
 
         if len(charset) > final_length:
-            error("Charset length should be smaller than strings length.")
+            fail("Charset length should be smaller than strings length.")
 
     def generate_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
@@ -50,7 +50,7 @@ class Bruteforce:
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
 
 
-def nix_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
+def nix_basic_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
     crypt.METHOD_CRYPT = crypt_method
     salt = encrypted_pass[:2]
     dict_file = open("/usr/share/dict/words", "r")
@@ -59,5 +59,5 @@ def nix_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
         if to_test == encrypted_pass:
             success("Password corresponding to {0} is {1}.".format(encrypted_pass, to_test))
             return 0
-    error("Password not found.")
+    fail("Password not found.")
     return -1

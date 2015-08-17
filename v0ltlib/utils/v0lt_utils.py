@@ -78,8 +78,8 @@ def warning(s):
     print("{0} {1}".format(yellow("[!]WARNING "), s))
 
 
-def error(s):
-    print("{0} {1}".format(red("[-]ERROR   "), s))
+def fail(s):
+    print("{0} {1}".format(red("[-]FAIL    "), s))
 
 
 def success(s):
@@ -138,7 +138,7 @@ def pow_two_align(size, alignment):
     if alignment != 0 and not alignment & (alignment - 1):
         return (size + alignment - 1) & ~(alignment - 1)
     else:
-        error("Not a power of two")
+        fail("Not a power of two")
 
 
 def is_query_success(response):

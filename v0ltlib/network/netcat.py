@@ -1,6 +1,6 @@
 import socket
 
-from v0ltlib.utils.v0lt_utils import error, green, yellow, bytes_to_str
+from v0ltlib.utils.v0lt_utils import fail, green, yellow, bytes_to_str
 
 
 class Netcat:
@@ -11,7 +11,7 @@ class Netcat:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((hostname, port))
         except Exception as err:
-            error("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err))
+            fail("Could not connect Netcat to {0}:{1} (error: {2})".format(hostname, port, err))
         print("Connected to port {0}".format(green(port)))
 
     def write(self, command):

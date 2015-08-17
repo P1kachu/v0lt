@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from requests import Session, Request
 
 from bs4 import BeautifulSoup
-from v0ltlib.utils.v0lt_utils import error, yellow, cyan, find_nth, is_query_success
+from v0ltlib.utils.v0lt_utils import fail, yellow, cyan, find_nth, is_query_success
 
 
 class ShellHack:
@@ -17,7 +17,7 @@ class ShellHack:
         self.keywords = keywords
         self.shellcode = shellcode
         if not shellcode and not keywords:
-            exit(error("Please specify some shellcode or keywords"))
+            exit(fail("Please specify some shellcode or keywords"))
 
     @staticmethod
     def delete_comments(line):
@@ -73,7 +73,7 @@ class ShellHack:
         print("\n")
 
         if len(response_text_list) < 1:
-            error("No shellcode found for these parameters.")
+            fail("No shellcode found for these parameters.")
             return None
 
         for i, line in enumerate(response_text_list):

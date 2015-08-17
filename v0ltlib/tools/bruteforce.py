@@ -50,6 +50,7 @@ class Bruteforce:
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
 
 
+# From Violent Python
 def nix_basic_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
     crypt.METHOD_CRYPT = crypt_method
     salt = encrypted_pass[:2]

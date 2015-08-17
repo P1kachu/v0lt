@@ -71,19 +71,19 @@ def white(s):
 
 def debug(s):
     if config.get("is_debug"):
-        print("{0} {1}".format(purple("[ DEBUG   ]"), s))
+        print("{0} {1}".format(purple("[ ]DEBUG   "), s))
 
 
 def warning(s):
-    print("{0} {1}".format(yellow("[ WARNING ]"), s))
+    print("{0} {1}".format(yellow("[!]WARNING "), s))
 
 
 def error(s):
-    print("{0} {1}".format(red("[ ERROR   ]"), s))
+    print("{0} {1}".format(red("[-]ERROR   "), s))
 
 
 def success(s):
-    print("{0} {1}".format(green("[ SUCCESS ]"), s))
+    print("{0} {1}".format(green("[+]SUCCESS "), s))
 
 
 # Conversions

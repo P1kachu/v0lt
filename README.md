@@ -34,16 +34,12 @@ GIVE ME SHELLCODZ
 >>> shellhack = ShellHack(4096, "bin","execve")
 >>> shellhack.get_shellcodes(shellhack.keywords)
 
-.
-.
-.
+...<SNIPPED>...
 85: Linux/x86:setuid(0) & execve(/sbin/poweroff -f) - 47 bytes
 86: Linux/x86:execve (/bin/sh) - 21 Bytes
 87: Linux/x86:break chroot execve /bin/sh - 80 bytes
 88: Linux/x86:execve(/bin/sh,0,0) - 21 bytes
-.
-.
-.
+...<SNIPPED>...
 
 Selection: 86
 Your choice: http://shell-storm.org/shellcode/files/shellcode-752.php

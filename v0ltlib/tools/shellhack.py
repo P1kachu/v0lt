@@ -17,7 +17,8 @@ class ShellHack:
         self.keywords = keywords
         self.shellcode = shellcode
         if not shellcode and not keywords:
-            exit(fail("Please specify some shellcode or keywords"))
+            fail("Please specify some shellcode or keywords")
+            exit(-1)
 
     @staticmethod
     def delete_comments(line):
@@ -125,7 +126,8 @@ class ShellHack:
         if is_query_success(resp):
             link = self.handle_shelllist(resp.text)
         else:
-            exit("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
+            fail("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
+            exit(-1)
 
         # Get Shellcode
         return self.html_to_shellcode(link) if link else link

@@ -3,11 +3,10 @@ build
 dist
 __pycache__
 
-*.pyc
 *.egg-info
 *.c
 *.tmp
 
-testing.py
+test.py
 commit.sh
 install.sh

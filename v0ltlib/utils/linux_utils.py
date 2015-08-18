@@ -1,6 +1,8 @@
 import subprocess
 import magic
 
+from v0ltlib.utils.v0lt_utils import debug
+
 
 def nix_echo(to_echo, params):
     bash_command = "echo -{0} {1}".format(params, to_echo)
@@ -14,4 +16,4 @@ def nix_file(file):
         with magic.Magic() as m:
             return m.id_filename(file)
     except Exception as e:
-        print(e)
+        debug(e)

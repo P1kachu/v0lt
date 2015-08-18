@@ -64,4 +64,4 @@ def nix_basic_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
             return to_test
 
     fail("Password not found.")
-    return None
+    return

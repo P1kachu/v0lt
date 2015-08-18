@@ -75,7 +75,7 @@ class ShellHack:
 
         if len(response_text_list) < 1:
             fail("No shellcode found for these parameters.")
-            return None
+            return
 
         for i, line in enumerate(response_text_list):
             # Get shellcode architecture
@@ -110,6 +110,7 @@ class ShellHack:
         url = "http://shell-storm.org/api/?s="
 
         # Craft URL with parameters
+        # Yes by hand, because f*ck the builtins
         params = ""
         for arg in args:
             params += str(arg)

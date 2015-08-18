@@ -51,7 +51,6 @@ class Hexeditor:
             debug(e)
 
     def restore_file(self, file_name, source=None):
-        to_restore = ''
         if source:
             f = open(source, "r")
             to_restore = f.read()

@@ -121,7 +121,6 @@ def hex_to_big_endian(*args):
 
 # Random Utils
 def flags_gen(output, head_of_flag, nb_of_flags):
-    # Flag generator
     flag_size = 64
     alphabet = "ABCDEFabcdef0123456789"
 

@@ -19,8 +19,10 @@ config = {"is_debug": True}
 # String utils
 def find_nth(string, substring, n):
     parts = string.split(substring, n + 1)
+
     if len(parts) <= n + 1:
         return -1
+
     return len(string) - len(parts[-1]) - len(substring)
 
 
@@ -35,9 +37,11 @@ def n_last(s, n):
 # Output Formatting
 def sizeof_fmt(num, suffix='b', rounded=False):
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
+
         if abs(num) < 1024.0:
             return "%d%s%s" % (num, unit, suffix) if rounded else "%3.1f%s%s" % (num, unit, suffix)
         num /= 1024.0
+
     return "%.1f%s%s" % (num, 'Yi', suffix)
 
 

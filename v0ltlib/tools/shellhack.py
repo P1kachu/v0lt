@@ -77,6 +77,7 @@ class ShellHack:
             fail("No shellcode found for these parameters.")
             return
 
+        # Please do NOT change the API...
         for i, line in enumerate(response_text_list):
             # Get shellcode architecture
             architecture = line[line.find("::::") + 4:find_nth(line, "::::", 1)]

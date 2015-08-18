@@ -55,6 +55,7 @@ class Hexeditor:
             f = open(source, "r")
             to_restore = f.read()
             f.close()
+
         else:
             to_restore = self.bytes_dump
 

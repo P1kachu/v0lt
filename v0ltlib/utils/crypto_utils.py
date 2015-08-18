@@ -30,8 +30,10 @@ def basic_ceasar(string, offset=0):
     string = string.upper()
     alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     upper_bound = len(alphabet)
+
     if offset != 0:
         encrypted = ''
+
         for c in string:
             if c == " ":
                 encrypted += " "
@@ -39,9 +41,11 @@ def basic_ceasar(string, offset=0):
                 if c in alphabet:
                     encrypted += alphabet[(alphabet.index(c) + offset) % upper_bound]
         return encrypted
+
     else:
         for i in range(upper_bound, 0, -1):
             plaintext = ''
+
             for c in string:
                 if c == " ":
                     plaintext += " "
@@ -70,11 +74,13 @@ def xor_str(s, key):
 def str_inv_xor(key, xored):
     for i, char_xored in enumerate(xored):
         found = 0
+
         for char in range(32, 128):
             if char ^ ord(key[i]) == ord(char_xored):
                 print(chr(char), end="")
                 found = 1
                 break
+
         if not found:
             print(red("X"), end="")
 
@@ -82,11 +88,13 @@ def str_inv_xor(key, xored):
 def int_inv_xor(key, xored):
     for i, char_xored in enumerate(xored):
         found = 0
+
         for char in range(32, 128):
             if char ^ key[i] == char_xored:
                 print(chr(char), end="")
                 found = 1
                 break
+
         if not found:
             print(red("X"), end="")
 
@@ -94,15 +102,18 @@ def int_inv_xor(key, xored):
 def extended_gcd(aa, bb):
     lastremainder, remainder = abs(aa), abs(bb)
     x, lastx, y, lasty = 0, 1, 1, 0
+
     while remainder:
         lastremainder, (quotient, remainder) = remainder, divmod(lastremainder, remainder)
         x, lastx = lastx - quotient * x, x
         y, lasty = lasty - quotient * y, y
+
     return lastremainder, lastx * (-1 if aa < 0 else 1), lasty * (-1 if bb < 0 else 1)
 
 
 def gcd(a, b):
     a, b = (b, a) if a < b else (a, b)
+
     while b:
         a, b = b, a % b
     return a
@@ -120,6 +131,7 @@ def totient(p, q):
 def bitlength(x):
     assert x >= 0
     n = 0
+
     while x > 0:
         n += 1
         x >>= 1
@@ -133,8 +145,10 @@ def isqrt(n):
 
     if n == 0:
         return 0
+
     a, b = divmod(bitlength(n), 2)
     x = 2 ** (a + b)
+
     while True:
         y = (x + n // x) // 2
         if y >= x:
@@ -161,16 +175,22 @@ def is_perfect_square(n):
 
 def inverse_power(x, n):
     high = 1
+
     while high ** n < x:
         high *= 2
     low = high / 2
     mid = 0
+
     while low < high:
         mid = int((low + high) // 2) + 1
+
         if low < mid and mid ** n < x:
             low = mid
+
         elif high > mid and mid ** n > x:
             high = mid
+
         else:
             return mid
+
     return mid + 1

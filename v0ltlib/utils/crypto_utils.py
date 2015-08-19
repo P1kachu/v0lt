@@ -28,7 +28,7 @@ def ceasar(string, offset=0):
 
 def basic_ceasar(string, offset=0):
     # If ofset == 0, bruteforce all possibilities
-    
+
     string = string.upper()
     alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     upper_bound = len(alphabet)

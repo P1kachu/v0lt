@@ -23,19 +23,22 @@ def nix_file(file):
 # From Violent Python
 def nix_basic_pass_cracker(encrypted_pass):
     crypt_method = encrypted_pass.split("$")[1]
-    print(crypt_method)
+
+    # I don't like switches anyway
     if crypt_method == '1':
         crypt.METHOD_CRYPT = crypt.METHOD_MD5
     elif crypt_method == '5':
         crypt.METHOD_CRYPT = crypt.METHOD_SHA256
+        salt = encrypted_pass.split("$")[2]
     elif crypt_method == '6':
         crypt.METHOD_CRYPT = crypt.METHOD_SHA512
+        salt = encrypted_pass.split("$")[2]
     else:
         fail("Unknown encryption method")
         return
 
-    salt = encrypted_pass.split("$")[2]
-    print(salt)
+    debug("Crypt: {0}".format(crypt.METHOD_CRYPT))
+    debug("Salt: {0}".format(salt))
 
     # Common passwords first
     dict_file = open("../utils/common_passwords.txt", "r")

@@ -56,6 +56,9 @@ class Tests(unittest.TestCase):
         he.restore_file("test1.tmp")
         he.restore_file("test2.tmp", "save.tmp")
 
+    def test_passwd_cracker(self):
+        nix_basic_pass_cracker("$1$CQoPk7Zh$370xDLmeGD9m4aF/ciIlC")
+
 
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(Tests)

@@ -1,6 +1,5 @@
 import itertools
 import os
-import crypt
 
 from v0ltlib.utils.v0lt_utils import fail, warning, debug, success, sizeof_fmt
 
@@ -48,29 +47,3 @@ class Bruteforce:
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
                     print(self.begin_with + ''.join(perm) + self.end_with, end="")
-
-
-# From Violent Python
-def nix_basic_pass_cracker(encrypted_pass, crypt_method=crypt.METHOD_SHA512):
-    crypt.METHOD_CRYPT = crypt_method
-    salt = encrypted_pass[:2]
-
-    # Common passwords first
-    dict_file = open("../utils/common_passwords.txt", "r")
-    for word in dict_file.readlines():
-        to_test = crypt.crypt(word, salt)
-
-        if to_test == encrypted_pass:
-            success("Password corresponding to {0} is {1}.".format(encrypted_pass, to_test))
-            return to_test
-
-    dict_file = open("/usr/share/dict/words", "r")
-    for word in dict_file.readlines():
-        to_test = crypt.crypt(word, salt)
-
-        if to_test == encrypted_pass:
-            success("Password corresponding to {0} is {1}.".format(encrypted_pass, to_test))
-            return to_test
-
-    fail("Password not found.")
-    return

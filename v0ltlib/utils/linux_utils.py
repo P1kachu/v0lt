@@ -25,6 +25,7 @@ def nix_basic_pass_cracker(encrypted_pass):
         crypt_method = encrypted_pass.split("$")[1]
     except Exception:
         crypt_method = '0'
+
     # I don't like switches anyway
     if crypt_method == '0':
         salt = encrypted_pass[0:2]
@@ -34,23 +35,17 @@ def nix_basic_pass_cracker(encrypted_pass):
 
         dict_file = open("common_passwords.txt", "r")
         for word in dict_file.readlines():
-            to_test = crypt.crypt(word.rstrip(), salt=salt)
-
-            if to_test == encrypted_pass:
+            if crypt.crypt(word.rstrip(), salt=salt) == encrypted_pass:
                 success("Password corresponding to {0} is {1}."
                         .format(encrypted_pass, cyan(word.rstrip())))
-                return to_test
+                return word.rstrip()
 
         dict_file = open("/usr/share/dict/words", "r")
         for word in dict_file.readlines():
-            to_test = crypt.crypt(word.rstrip(), salt=salt)
-            if to_test == encrypted_pass:
+            if crypt.crypt(word.rstrip(), salt=salt) == encrypted_pass:
                 success("Password corresponding to {0} is {1}."
                         .format(encrypted_pass, cyan(word.rstrip())))
-                return to_test
-
-        fail("Password not found for {0}.".format(encrypted_pass))
-        return
+                return word.rstrip()
 
     else:
         if crypt_method == '1':
@@ -75,10 +70,11 @@ def nix_basic_pass_cracker(encrypted_pass):
         for word in dict_file.readlines():
             to_test = encryption(word.rstrip(), salt=salt)
             to_test = pass_filter(to_test)
+
             if to_test == encrypted_pass:
                 success("Password corresponding to {0} is {1}."
                         .format(encrypted_pass, cyan(word.rstrip())))
-                return to_test
+                return word.rstrip()
 
         dict_file = open("/usr/share/dict/words", "r")
         for word in dict_file.readlines():
@@ -88,13 +84,13 @@ def nix_basic_pass_cracker(encrypted_pass):
             if to_test == encrypted_pass:
                 success("Password corresponding to {0} is {1}."
                         .format(encrypted_pass, cyan(word.rstrip())))
-                return to_test
+                return word.rstrip()
 
-        fail("Password not found for {0}.".format(encrypted_pass))
-        return
+    fail("Password not found for {0}.".format(encrypted_pass))
+    return
 
 
 def filter_rounds(password):
     pass_list = password.split("$")
-    ret = "${0}${1}${2}".format(pass_list[1], pass_list[3], pass_list[4])
-    return ret
+    filtered = "${0}${1}${2}".format(pass_list[1], pass_list[3], pass_list[4])
+    return filtered

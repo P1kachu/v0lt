@@ -14,6 +14,7 @@ A lot of exercises were solved using bash scripts but Python may be more flexibl
   * Requests    
   * filemagic    
   * hexdump    
+  * passlib
 
 ####Installation:   
 ```Bash

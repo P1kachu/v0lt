@@ -26,7 +26,7 @@ def nix_basic_pass_cracker(encrypted_pass):
     except Exception:
         crypt_method = '0'
 
-    # I don't like switches anyway
+    # Basic MD5
     if crypt_method == '0':
         salt = encrypted_pass[0:2]
 
@@ -34,19 +34,20 @@ def nix_basic_pass_cracker(encrypted_pass):
         debug("Salt: {0}".format(salt))
 
         dict_file = open("common_passwords.txt", "r")
-        for word in dict_file.readlines():
-            if crypt.crypt(word.rstrip(), salt=salt) == encrypted_pass:
+        for word in dict_file.readlines().rstrip():
+            if encrypted_pass == crypt.crypt(word, salt=salt):
                 success("Password corresponding to {0} is {1}."
-                        .format(encrypted_pass, cyan(word.rstrip())))
-                return word.rstrip()
+                        .format(encrypted_pass, cyan(word)))
+                return word
 
         dict_file = open("/usr/share/dict/words", "r")
-        for word in dict_file.readlines():
-            if crypt.crypt(word.rstrip(), salt=salt) == encrypted_pass:
+        for word in dict_file.readlines().rstrip():
+            if encrypted_pass == crypt.crypt(word, salt=salt):
                 success("Password corresponding to {0} is {1}."
-                        .format(encrypted_pass, cyan(word.rstrip())))
-                return word.rstrip()
+                        .format(encrypted_pass, cyan(word)))
+                return word
 
+    # /etc/shadow style
     else:
         if crypt_method == '1':
             encryption = passlib.md5_crypt.encrypt
@@ -67,24 +68,18 @@ def nix_basic_pass_cracker(encrypted_pass):
         debug("Salt: {0}".format(salt))
 
         dict_file = open("common_passwords.txt", "r")
-        for word in dict_file.readlines():
-            to_test = encryption(word.rstrip(), salt=salt)
-            to_test = pass_filter(to_test)
-
-            if to_test == encrypted_pass:
+        for word in dict_file.readlines().rstrip():
+            if encrypted_pass == pass_filter(encryption(word, salt=salt)):
                 success("Password corresponding to {0} is {1}."
-                        .format(encrypted_pass, cyan(word.rstrip())))
-                return word.rstrip()
+                        .format(encrypted_pass, cyan(word)))
+                return word
 
         dict_file = open("/usr/share/dict/words", "r")
-        for word in dict_file.readlines():
-            to_test = encryption(word.rstrip(), salt=salt)
-            to_test = pass_filter(to_test)
-
-            if to_test == encrypted_pass:
+        for word in dict_file.readlines().rstrip():
+            if encrypted_pass == pass_filter(encryption(word, salt=salt)):
                 success("Password corresponding to {0} is {1}."
-                        .format(encrypted_pass, cyan(word.rstrip())))
-                return word.rstrip()
+                        .format(encrypted_pass, cyan(word)))
+                return word
 
     fail("Password not found for {0}.".format(encrypted_pass))
     return

@@ -86,6 +86,7 @@ minor changes are omitted.
 
 - Lots of fixes again
 - Hexeditor (Dump/Rewrite files)
+- Unix password bruteforce cracker
 
 ## 1.2
 

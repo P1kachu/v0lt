@@ -1,5 +1,0 @@
-from v0lt import *
-import os
-os.system("clear")
-print(nix_file(testing.py))
-nix_basic_pass_cracker("$1$CQoPk7Zh$370xDLmeGD9m4aF/ciIlC")

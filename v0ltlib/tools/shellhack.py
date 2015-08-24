@@ -111,7 +111,7 @@ class ShellHack:
         url = "http://shell-storm.org/api/?s="
 
         # Craft URL with parameters
-        # Yes by hand, because f*ck the builtins
+        # Yes manually, because f*ck the builtins
         params = ""
         for arg in args:
             params += str(arg)

@@ -20,9 +20,6 @@ class Bruteforce:
         self.final_length = final_length
         self.length = self.final_length - (len(self.begin_with) + len(self.end_with) - 1)
 
-        if len(charset) > final_length:
-            fail("Charset length should be smaller than strings length.")
-
     def generate_strings(self, output=None):
         nb_of_lines = pow(len(self.dictionnary), self.length)
 

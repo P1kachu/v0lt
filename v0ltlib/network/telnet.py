@@ -3,6 +3,9 @@ import telnetlib
 from v0ltlib.utils.v0lt_utils import fail, green, yellow, bytes_to_str
 
 
+# WIP - SOME FEATURES NEED SOME REWORK
+
+
 class Telnet:
     tn = None
 

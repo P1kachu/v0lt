@@ -44,13 +44,16 @@ def nix_basic_pass_cracker(encrypted_pass):
     # /etc/shadow style
     else:
         if crypt_method == '1':
+            debug("Method: MD5")
             encryption = passlib.md5_crypt.encrypt
             pass_filter = lambda x: x
         elif crypt_method == '5':
+            debug("Method: SHA256")
             encryption = passlib.sha256_crypt.encrypt
             pass_filter = filter_rounds
             warning("This may be long... Go grab a coffee (or maybe 10)")
         elif crypt_method == '6':
+            debug("Method: SHA512")
             encryption = passlib.sha512_crypt.encrypt
             pass_filter = filter_rounds
             warning("This may be long... Go grab a coffee (or maybe 10)")

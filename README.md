@@ -4,23 +4,26 @@ v0lt
 ====
 
 v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style.
-A lot of exercises were solved using bash scripts but Python may be more flexible, that's why.    
+A lot of exercises were solved using bash scripts but Python may be
+more flexible, that's why.
+Nothing to do with Gallopsled. It's a toy toolkit, with small but
+specific utils only.
 
-##Requirements and Installation    
-####Dependencies:   
+##Requirements and Installation
+####Dependencies:
 * Libmagic
-* Python3    
-  * BeautifulSoup    
-  * Requests    
-  * filemagic    
-  * hexdump    
+* Python3
+  * BeautifulSoup
+  * Requests
+  * filemagic
+  * hexdump
   * passlib
 
-####Installation:   
+####Installation:
 ```Bash
 # for v0lt install
-git clone https://github.com/P1kachu/v0lt.git     
-cd v0lt    
+git clone https://github.com/P1kachu/v0lt.git
+cd v0lt
 [sudo] python3 setup.py install # sudo is required for potentially missing dependencies
 ```
 
@@ -55,27 +58,27 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:
 File name too long
 P1kaCTF{sh3llc0de_1s_e4zY}
 ```
-##Implemented:    
-* Crypto    
-    * Base64    
-    * Ceasar shift    
-    * Hashing functions (SHA, MD5)    
-    * Bits manipulations (XOR, inverse XOR)    
-    * Usual conversions (bytes, strings, hex)    
+##Implemented:
+* Crypto
+    * Base64
+    * Ceasar shift
+    * Hashing functions (SHA, MD5)
+    * Bits manipulations (XOR, inverse XOR)
+    * Usual conversions (bytes, strings, hex)
     * RSA basics (inverse modulo, inverse power, egcd...)
     * Bruteforcing (Dictionnary, custom word)
 
-* Shellcodes    
-    * Shellcode selection and download from Shell-storm repo    
-    * Shellcode formater 
+* Shellcodes
+    * Shellcode selection and download from Shell-storm repo
+    * Shellcode formater
     * Shell{cat,net}: Sending shellcode made easy
     * Automatic padding
 
-* Easy connection support    
-    * Netcat    
-    * Telnet    
+* Easy connection support
+    * Netcat
+    * Telnet
 
-And more    
+And more
 Examples are available ![here](./v0lt/examples.py)
 
 

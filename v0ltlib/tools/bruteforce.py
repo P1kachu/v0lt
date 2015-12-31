@@ -33,7 +33,8 @@ class Bruteforce:
             debug("Bruteforcing...")
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
-                    f.write(self.begin_with + ''.join(perm) + self.end_with)
+                    bruted = ''.join(perm)
+                    f.write(self.begin_with + bruted[::-1] + self.end_with)
             f.close()
 
             success("File created ({0})".format(sizeof_fmt(os.path.getsize(output))))
@@ -43,4 +44,5 @@ class Bruteforce:
             print("({0} permutations here)".format(nb_of_lines))
             for n in range(self.length, self.length + 1):
                 for perm in itertools.product(self.dictionnary, repeat=n):
-                    print(self.begin_with + ''.join(perm) + self.end_with, end="")
+                    bruted = ''.join(perm)
+                    print(self.begin_with + bruted[::-1] + self.end_with, end="")

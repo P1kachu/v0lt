@@ -34,7 +34,7 @@ def n_last(s, n):
     return s[n:]
 
 def newl():
-    print("\n")
+    print("")
 
 # Output Formatting
 def sizeof_fmt(num, suffix='b', rounded=False):

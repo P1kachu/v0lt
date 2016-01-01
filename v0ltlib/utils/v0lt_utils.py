@@ -33,6 +33,8 @@ def n_first(s, n):
 def n_last(s, n):
     return s[n:]
 
+def newl():
+    print("\n")
 
 # Output Formatting
 def sizeof_fmt(num, suffix='b', rounded=False):

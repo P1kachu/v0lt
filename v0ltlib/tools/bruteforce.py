@@ -13,7 +13,7 @@ class Bruteforce:
     end_with = ""
     max_iterations = 0
 
-    def __init__(self, charset, final_length, begin_with="", end_with="", max_iterations=1):
+    def __init__(self, charset, final_length, begin_with="", end_with="", max_iterations=-1):
         self.dictionnary = charset
         self.range_limit = len(self.dictionnary)
         self.begin_with = begin_with
@@ -24,6 +24,9 @@ class Bruteforce:
 
     def generate_strings(self, output=None, verbose=True):
         nb_of_lines = pow(len(self.dictionnary), self.length)
+        if self.max_iterations == -1:
+            self.max_iterations = nb_of_lines + 1
+
         i = 0
         if output:
             f = open(output, "w")

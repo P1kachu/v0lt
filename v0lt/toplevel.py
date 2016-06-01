@@ -13,4 +13,3 @@ from v0ltlib.network.netcat import Netcat
 
 from v0ltlib.tools.shellhack import ShellHack
 from v0ltlib.tools.bruteforce import Bruteforce
-from v0ltlib.tools.hexeditor import Hexeditor

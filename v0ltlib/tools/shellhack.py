@@ -1,18 +1,14 @@
+import re
 from urllib.request import urlopen
-
 from requests import Session, Request
-
 from bs4 import BeautifulSoup
 from v0ltlib.utils.v0lt_utils import fail, yellow, cyan, find_nth, is_query_success
 
 
-class ShellHack:
-    length = 0
-    maximum_shellcode_length = 0
-    keywords = None
-    shellcode = ""
 
-    def __init__(self, maximum_length, *keywords, shellcode=None):
+class ShellHack:
+
+    def __init__(self, maximum_length, *keywords, strict=False, shellcode=None):
         '''
         ShellHack is a utility used to recover and format shellcode downloaded
         from shell-storm.org.
@@ -20,6 +16,10 @@ class ShellHack:
         :param maximum_length: Maximum length for the shellcode
         :param *keywords:      Keywords to find the shellcode in the Shell-storm
                                database
+        :param strict:         Usually maximum_length is used for shellcode
+                               padding, but when restrict is True, the shellcode
+                               list will only display those which length is less
+                               than maximum_length.
         :param shellcode:      User can input an already defined shellcode
                                directly in ShellHack
 
@@ -27,6 +27,7 @@ class ShellHack:
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode
+        self.strict = strict
         if not shellcode and not keywords:
             fail("Please specify some shellcode or keywords")
             exit(-1)
@@ -85,8 +86,7 @@ class ShellHack:
         self.shellcode = final_shellcode.replace("\\x", "\\\\x")
         return self.shellcode
 
-    @staticmethod
-    def handle_shelllist(response_text):
+    def handle_shelllist(self, response_text):
         '''
         Print shellcodes in database that match given keywords
         VERY HACKY - Didn't find any clean way to parse this, and I FREAKIN HATE
@@ -99,10 +99,22 @@ class ShellHack:
 
         if len(response_text_list) < 1:
             fail("No shellcode found for these parameters.")
-            return
+            return None
 
         # Please do NOT change the API...
         for i, line in enumerate(response_text_list):
+
+            # Check shellcode length (strict=True)
+            if self.strict:
+                try:
+                    length = re.search('\d[\d ]*bytes', line).group()
+                    length = re.search('\d*', length).group()
+                    if int(length) > self.maximum_shellcode_length:
+                        continue
+                except Exception as e:
+                    # Shellcode has no length - Skip it
+                    continue
+
             # Get shellcode architecture
             architecture = line[line.find("::::") + 4:find_nth(line, "::::", 1)]
 
@@ -110,7 +122,7 @@ class ShellHack:
             title = line[find_nth(line, "::::", 1) + 4:find_nth(line, "::::", 2)]
 
             # Get shellcode's link
-            link = line[find_nth(line, "::::", 3) + 4:]
+            link = re.search('http://.*\.php', line).group()
 
             # Add to list
             entry = "({0}) {1}".format(architecture, cyan(title))
@@ -169,7 +181,7 @@ class ShellHack:
             s = self.html_to_shellcode(link) if link else link
 
             if s == '':
-                fail("Shellcode could not be recovered - Please choose another one")
+                fail("Shellcode could not be retrieved - Please choose another one")
 
         return s
 

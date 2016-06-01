@@ -7,12 +7,15 @@ from v0ltlib.utils.v0lt_utils import fail, yellow, cyan, find_nth, is_query_succ
 
 
 class ShellHack:
+    '''
+    ShellHack is a utility used to recover and format shellcode downloaded
+    from shell-storm.org.
+    '''
+
 
     def __init__(self, maximum_length, *keywords, strict=False, shellcode=None):
         '''
-        ShellHack is a utility used to recover and format shellcode downloaded
-        from shell-storm.org.
-
+        Initialize a Shellcode crafter
         :param maximum_length: Maximum length for the shellcode
         :param *keywords:      Keywords to find the shellcode in the Shell-storm
                                database
@@ -22,7 +25,6 @@ class ShellHack:
                                than maximum_length.
         :param shellcode:      User can input an already defined shellcode
                                directly in ShellHack
-
         '''
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords

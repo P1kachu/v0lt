@@ -13,7 +13,12 @@ class ShellCrafter:
     '''
 
 
-    def __init__(self, maximum_length, *keywords, strict=False, shellcode=None):
+    def __init__(self,
+                 maximum_length,
+                 *keywords,
+                 strict=False,
+                 shellcode=None,
+                 script_index=-1):
         '''
         Initialize a Shellcode crafter
         :param maximum_length: Maximum length for the shellcode
@@ -25,14 +30,23 @@ class ShellCrafter:
                                than maximum_length.
         :param shellcode:      User can input an already defined shellcode
                                directly in ShellCrafter
+        :param script_index    Shellcode to select can be specified here (useful
+                               when scripting)
         '''
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode
         self.strict = strict
+        self.script_index = script_index
         if not shellcode and not keywords:
             fail("Please specify some shellcode or keywords")
             exit(-1)
+
+
+    @staticmethod
+    def principal_period(s):
+        i = (s+s).find(s, 1, -1)
+        return s if i == -1 else s[:i]
 
     @staticmethod
     def delete_comments(line):
@@ -84,8 +98,11 @@ class ShellCrafter:
         final_shellcode = final_shellcode.replace("\n", "")
         print("{0} {1}\n".format(yellow("Shellcode:"), final_shellcode))
 
+        # In case there are multiple occurences of the shellcode in the page
+        final_shellcode = self.principal_period(final_shellcode)
+
         # Return shellcode as string, not bytes
-        self.shellcode = final_shellcode.replace("\\x", "\\\\x")
+        self.shellcode = final_shellcode
         return self.shellcode
 
     def handle_shelllist(self, response_text):
@@ -132,6 +149,13 @@ class ShellCrafter:
             shellist.append(link)
             print("{0}: {1}".format(i, entry))
             i += 1
+
+        if self.script_index > -1:
+            try:
+                sh = shellist[self.script_index]
+                return sh
+            except IndexError as e:
+                print(e)
 
         user_choice = 0
         while 1:
@@ -195,9 +219,9 @@ class ShellCrafter:
         '''
         return int(len(self.shellcode) / 4)
 
-    def pad(self):
+    def padding(self):
         '''
         Used to pad the shellcode to the length specified in the constructor
         '''
         pad_length = self.maximum_shellcode_length - self.shellcode_length()
-        return "A" * pad_length
+        return "\\x41" * pad_length

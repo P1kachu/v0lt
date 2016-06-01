@@ -125,7 +125,8 @@ class ShellHack:
             try:
                 print("Your choice: {0}".format(shellist[int(user_choice)]))
                 break
-            except IndexError:
+            except IndexError as e:
+                print(e)
                 continue
 
         # Return selected shellcode
@@ -156,14 +157,21 @@ class ShellHack:
         s = Session()
         resp = s.send(prepped, timeout=10, verify=True)
         link = ""
-        if is_query_success(resp):
-            link = self.handle_shelllist(resp.text)
-        else:
-            fail("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
-            exit(-1)
+        s = ''
+        while s == '':
+            if is_query_success(resp):
+                link = self.handle_shelllist(resp.text)
+            else:
+                fail("Something went wrong with the request ({0}: {1}".format(resp.code, resp.text))
+                return None
 
-        # Get Shellcode
-        return self.html_to_shellcode(link) if link else link
+            # Get Shellcode
+            s = self.html_to_shellcode(link) if link else link
+
+            if s == '':
+                fail("Shellcode could not be recovered - Please choose another one")
+
+        return s
 
     def shellcode_length(self):
         '''

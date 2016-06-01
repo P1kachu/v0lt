@@ -110,7 +110,7 @@ def bytes_to_str(b):
 
 
 def str_to_hex(s):
-    return binascii.hexlify(bytes(s, "UTfF-8"))
+    return binascii.hexlify(bytes(s, "UTF-8"))
 
 
 def hex_to_str(s):

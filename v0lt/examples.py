@@ -50,13 +50,6 @@ class Tests(unittest.TestCase):
         bf = Bruteforce(charset="abcdef", final_length=12, begin_with="l", end_with="P")
         bf.generate_strings(output="bf.tmp")
 
-    def test_hex(self):
-        he = Hexeditor()
-        he.dump_file("setup.py")
-        he.save_file_as_hex("save.tmp")
-        he.restore_file("test1.tmp")
-        he.restore_file("test2.tmp", "save.tmp")
-
     def test_passwd_cracker(self):
         nix_basic_pass_cracker("HX9LLTdc/jiDE")
         nix_basic_pass_cracker("HX8LLTdc/jiDE")

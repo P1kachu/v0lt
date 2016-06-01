@@ -87,6 +87,11 @@ Examples are available ![here](./v0lt/examples.py)
 Only includes major features and changes. Bugfixes and
 minor changes are omitted.
 
+## 1.4
+- Better Shellhack shellcode recovering
+- Add docstrings
+- Delete Hexeditor (not good)
+
 ## 1.3
 
 - Lots of fixes again

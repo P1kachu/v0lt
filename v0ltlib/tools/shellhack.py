@@ -102,7 +102,8 @@ class ShellHack:
             return None
 
         # Please do NOT change the API...
-        for i, line in enumerate(response_text_list):
+        i = 0
+        for line in response_text_list:
 
             # Check shellcode length (strict=True)
             if self.strict:
@@ -128,6 +129,7 @@ class ShellHack:
             entry = "({0}) {1}".format(architecture, cyan(title))
             shellist.append(link)
             print("{0}: {1}".format(i, entry))
+            i += 1
 
         user_choice = 0
         while 1:

@@ -32,9 +32,9 @@ class Tests(unittest.TestCase):
         self.assertEqual(encrypted, deciphered)
 
     def test_get_shellcode(self):
-        sh = ShellHack(70, "/bin/lol")
+        sh = ShellCrafter70, "/bin/lol")
         sh.get_shellcodes(sh.keywords)
-        sh = ShellHack(70, "/bin/sh")
+        sh = ShellCrafter(70, "/bin/sh")
         sh.get_shellcodes(sh.keywords)
 
     def test_flag_gen(self):

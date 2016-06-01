@@ -4,9 +4,12 @@ from v0ltlib.utils.v0lt_utils import fail, green, yellow, bytes_to_str
 
 
 class Netcat:
-    socket = None
-
+    '''
+    Easy and quick interface for emulating netcat, with possibility to send
+    shellcodes directly from ShellCrafter !
+    '''
     def __init__(self, hostname, port):
+
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((hostname, port))

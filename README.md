@@ -34,7 +34,7 @@ cd v0lt
 Connected to port 65102
 >>> print(nc.read())
 GIVE ME SHELLCODZ
->>> shellhack = ShellHack(4096, "bin","execve")
+>>> shellhack = ShellCrafter(4096, "bin","execve")
 >>> shellhack.get_shellcodes(shellhack.keywords)
 
 ...<SNIPPED>...
@@ -88,7 +88,8 @@ Only includes major features and changes. Bugfixes and
 minor changes are omitted.
 
 ## 1.4
-- Better Shellhack shellcode recovering
+- ShellHack becomes ShellCrafter
+- Better ShellCrafter shellcode recovering
 - Add docstrings
 - Delete Hexeditor (not good)
 

@@ -6,9 +6,9 @@ from v0ltlib.utils.v0lt_utils import fail, yellow, cyan, find_nth, is_query_succ
 
 
 
-class ShellHack:
+class ShellCrafter:
     '''
-    ShellHack is a utility used to recover and format shellcode downloaded
+    ShellCrafter is a utility used to recover and format shellcode downloaded
     from shell-storm.org.
     '''
 
@@ -24,7 +24,7 @@ class ShellHack:
                                list will only display those which length is less
                                than maximum_length.
         :param shellcode:      User can input an already defined shellcode
-                               directly in ShellHack
+                               directly in ShellCrafter
         '''
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords

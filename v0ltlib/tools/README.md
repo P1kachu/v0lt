@@ -1,12 +1,12 @@
 Tools
 =====
 
-##ShellHack   
+##ShellCrafter
 Used to send easily shellcodes via netcat
 
 ```Python
 >>> from v0lt import *
->>> shellhack = ShellHack(4096, "bin","execve")
+>>> shellhack = ShellCrafter(4096, "bin","execve")
 >>> shellhack.get_shellcodes(shellhack.keywords)
 
 .
@@ -28,7 +28,7 @@ Shellcode: "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62[...]"
 >>> padded_shellcode = shellhack.pad()
 ```
 
-##Bruteforce  
+##Bruteforce
 Easy bruteforce generator
 
 ```Python

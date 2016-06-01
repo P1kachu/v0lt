@@ -11,5 +11,5 @@ from v0ltlib.utils.linux_utils import *
 from v0ltlib.network.telnet import Telnet
 from v0ltlib.network.netcat import Netcat
 
-from v0ltlib.tools.shellhack import ShellHack
+from v0ltlib.tools.shellcrafter import ShellCrafter
 from v0ltlib.tools.bruteforce import Bruteforce

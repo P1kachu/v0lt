@@ -10,4 +10,6 @@ __pycache__
 test*.py
 commit.sh
 install.sh
-*.pyc
+.ipynb_checkpoints/
+Untitled.ipynb
+

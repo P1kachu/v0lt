@@ -13,6 +13,17 @@ class ShellHack:
     shellcode = ""
 
     def __init__(self, maximum_length, *keywords, shellcode=None):
+        '''
+        ShellHack is a utility used to recover and format shellcode downloaded
+        from shell-storm.org.
+
+        :param maximum_length: Maximum length for the shellcode
+        :param *keywords:      Keywords to find the shellcode in the Shell-storm
+                               database
+        :param shellcode:      User can input an already defined shellcode
+                               directly in ShellHack
+
+        '''
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode
@@ -22,6 +33,9 @@ class ShellHack:
 
     @staticmethod
     def delete_comments(line):
+        '''
+        Delete C style comments in shellcodes
+        '''
         if "//" in line:
             comment = line.find("//")
             line = line[:comment]
@@ -34,6 +48,10 @@ class ShellHack:
         return line
 
     def html_to_shellcode(self, link):
+        '''
+        Fetch HTML page from shell-storm and recover the shellcode
+        '''
+
         # Fetch webpage
         html = urlopen(link).read()
 
@@ -69,6 +87,12 @@ class ShellHack:
 
     @staticmethod
     def handle_shelllist(response_text):
+        '''
+        Print shellcodes in database that match given keywords
+        VERY HACKY - Didn't find any clean way to parse this, and I FREAKIN HATE
+        parsing. So let's just hope the API won't change
+        '''
+
         response_text_list = [x for x in response_text.split("\n") if x]
         shellist = []
         print("\n")
@@ -108,10 +132,17 @@ class ShellHack:
         return shellist[int(user_choice)]
 
     def get_shellcodes(self, args):
+        '''
+        Request shellcodes from shell-storm that match the keywords
+
+        :param args: Keywords to send to the API
+        :returns:    String formatted shellcodes
+        '''
         url = "http://shell-storm.org/api/?s="
 
         # Craft URL with parameters
-        # Yes manually, because f*ck the builtins
+        # There should be some builtins for this, but I was tired at the time I
+        # wrote this...
         params = ""
         for arg in args:
             params += str(arg)
@@ -135,8 +166,14 @@ class ShellHack:
         return self.html_to_shellcode(link) if link else link
 
     def shellcode_length(self):
+        '''
+        :returns: The saved shellcode length
+        '''
         return int(len(self.shellcode) / 4)
 
     def pad(self):
+        '''
+        Used to pad the shellcode to the length specified in the constructor
+        '''
         pad_length = self.maximum_shellcode_length - self.shellcode_length()
         return "A" * pad_length

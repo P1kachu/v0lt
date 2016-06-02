@@ -4,10 +4,11 @@ import itertools
 
 from v0ltlib.utils.v0lt_utils import red, fail
 
+'''
+Some basic functions used in easy crypto challenge
 
-def b64(s):
-    return base64.b64decode(s)
-
+TODO: Make ceasar with yield, stuff like this
+'''
 
 def ceasar(string, offset=0):
     upper_bound = 128 - 32
@@ -55,18 +56,6 @@ def basic_ceasar(string, offset=0):
                     if c in alphabet:
                         plaintext += alphabet[(alphabet.index(c) + i) % upper_bound]
             print("{0}: {1}".format(upper_bound - i, plaintext))
-
-
-def sha1(s):
-    return hashlib.sha1(s).hexdigest()
-
-
-def sha256(s):
-    return hashlib.sha256(s).hexdigest()
-
-
-def md5(s):
-    return hashlib.md5(s).hexdigest()
 
 
 def xor_str(s, key):

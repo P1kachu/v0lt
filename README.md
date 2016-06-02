@@ -91,7 +91,8 @@ minor changes are omitted.
 - ShellHack becomes ShellCrafter
 - Better ShellCrafter shellcode recovering
 - Add docstrings
-- Delete Hexeditor (not good)
+- Refactoring
+- Delete Hexeditor and linux_utils (not good)
 
 ## 1.3
 

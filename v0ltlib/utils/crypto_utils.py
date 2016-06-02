@@ -58,10 +58,6 @@ def basic_ceasar(string, offset=0):
             print("{0}: {1}".format(upper_bound - i, plaintext))
 
 
-def xor_str(s, key):
-    return "".join(chr(ord(c) ^ ord(k)) for c, k in zip(s, itertools.cycle(key)))
-
-
 def str_inv_xor(key, xored):
     for i, char_xored in enumerate(xored):
         found = 0

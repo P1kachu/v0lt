@@ -9,10 +9,9 @@ int get_char(int x, int upper)
         ret += upper;
 
         // Simulate Crackme doing lots of stuff
-        x -= 2500;
         for (int i = 0; i < 2500; ++i)
-                x += 2;
-        x -= 2500;
+                x *= 2;
+
         return ret;
 }
 
@@ -62,9 +61,9 @@ int main(int argc, char **argv)
                         return -1;
                 if (argv[1][i++] != get_char(13, 0))
                         return -1;
-                if (argv[1][i++] != get_char(33, 0))
+                if (argv[1][i++] != get_char(32, 0))
                         return -1;
-                if (argv[1][i++] != get_char(29, 0))
+                if (argv[1][i++] != get_char(17, 0))
                         return -1;
                 if (argv[1][i++] != get_char(20, 32))
                         return -1;

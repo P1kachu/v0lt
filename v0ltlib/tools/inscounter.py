@@ -63,3 +63,36 @@ class InstructionCounter:
             cmd = '/bin/bash -c "{0} {1} <<< {2}"'.format(self.cmd, self.binary, string)
             os.system(cmd)
 
+    def get_pass_length(self):
+
+        iterations = -1
+        max_i = 0
+
+        for i in range(2, 100):
+
+            string = 'A' * i
+            self.run_pin(string)
+
+            try:
+                with open(self.OUTPUT_FILE, 'r') as f:
+                    count = f.read()
+                    count = count[len(self.PIN_STRING_BEGIN):]
+                    count = int(count)
+                    debug("Count: {0}".format(count))
+                    if iterations < 0:
+                        iterations = count
+                    else:
+                        if iterations < count:
+                            iterations = count
+                            if self.stop_at == StopAt.FIRST_CHANGE:
+                                success('Pass length guessed: {0}'.format(i))
+                                return i
+                            max_i = i
+            except Exception as e:
+                smth_went_wrong('get_pass_length', e)
+                return -1
+
+        success('Pass length guessed: {0}'.format(max_i))
+        self.clean_temp()
+        return max_i
+

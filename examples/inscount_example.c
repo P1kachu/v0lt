@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 
+// gcc -O0 examples/inscount_example.c -o examples/inscount_example.elf
+
 int get_char(int x, int upper)
 {
         char set[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

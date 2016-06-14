@@ -82,5 +82,5 @@ P1kaCTF{sh3llc0de_1s_e4zY}
     * Instruction Counting bruteforcer
 
 And more
-Examples are available ![here](./v0lt/examples.py)
+Examples are available ![here](./examples/)
 

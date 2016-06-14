@@ -141,6 +141,8 @@ class InstructionCounter:
         if self.length < 0:
             warning("no length specified - guessing")
             self.length = self.get_pass_length()
+            if self.length < 0:
+                return None
 
         begin_with = ''
         for i in range(0, self.length):
@@ -184,6 +186,8 @@ class InstructionCounter:
         if self.length < 0:
             warning("no length specified - guessing")
             self.length = self.get_pass_length()
+            if self.length < 0:
+                return None
 
         begin_with = ''
         for i in range(0, self.length):

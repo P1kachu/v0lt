@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from v0lt import *
@@ -6,14 +7,6 @@ __author__ = 'P1kachu'
 
 
 class Tests(unittest.TestCase):
-    def test_netcat(self):
-        nc = Netcat("archpichu.ddns.net", 65103)
-        self.assertEqual(nc.read(), "\nNothing to display yet...\n")
-
-    def test_telnet(self):
-        tl = Telnet("archpichu.ddns.net", 65103)
-        self.assertEqual(tl.read(), "\nNothing to display yet...\n")
-
     def test_stack(self):
         stack = Stack()
         self.assertEqual(stack.size(), 0)
@@ -32,23 +25,29 @@ class Tests(unittest.TestCase):
         self.assertEqual(encrypted, deciphered)
 
     def test_get_shellcode(self):
-        sh = ShellCrafter70, "/bin/lol")
+        sh = ShellCrafter(70, "/bin/lol")
         sh.get_shellcodes(sh.keywords)
-        sh = ShellCrafter(70, "/bin/sh")
+        sh = ShellCrafter(70, "/bin/sh", script_index=98)
         sh.get_shellcodes(sh.keywords)
 
     def test_flag_gen(self):
-        flags_gen("flags.tmp", "P1ka", 10)
+        outpt = "flags.tmp"
+        flags_gen(outpt, "P1ka", 10)
+        os.remove(outpt)
 
     def test_find_nth(self):
         self.assertEqual(find_nth("lolilol", "l", 3), 6)
         self.assertEqual(find_nth("lolilol", "l", 4), -1)
 
-    def brute(self):
+    @staticmethod
+    def brute():
+        outpt = "bf.tmp"
         bf = Bruteforce(charset="abcd", final_length=5, begin_with="l", end_with="P")
         bf.generate_strings()
         bf = Bruteforce(charset="abcdef", final_length=12, begin_with="l", end_with="P")
-        bf.generate_strings(output="bf.tmp")
+        bf.generate_strings(output=outpt)
+        os.remove(outpt)
+
 
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(Tests)

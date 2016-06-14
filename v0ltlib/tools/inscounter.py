@@ -47,3 +47,19 @@ class InstructionCounter:
         else:
             self.cmd = self.PIN64_COMMAND.format(pin_path)
 
+    def clean_temp(self):
+        if os.path.isfile(self.TMP_BRUTE):
+            os.remove(self.TMP_BRUTE)
+        if os.path.isfile(self.OUTPUT_FILE):
+            os.remove(self.OUTPUT_FILE)
+        if os.path.isfile('pin.log'):
+            os.remove('pin.log')
+
+    def run_pin(self, string):
+        if self.input_form == InputForm.ARGV:
+            cmd = '{0} {1} {2}'.format(self.cmd, self.binary, string)
+            os.system(cmd)
+        else:
+            cmd = '/bin/bash -c "{0} {1} <<< {2}"'.format(self.cmd, self.binary, string)
+            os.system(cmd)
+

@@ -6,6 +6,7 @@ __pycache__
 *.egg-info
 *.c
 *.tmp
+*.out
 
 test*.py
 commit.sh

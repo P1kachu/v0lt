@@ -93,6 +93,9 @@ def fail(s):
 def success(s):
     print("{0} {1}".format(green("[+]SUCCESS "), s))
 
+def smth_went_wrong(func, err):
+    fail("Something went wrong in {0}: {1}".format(func, err))
+
 
 # Conversions
 def bytes_to_hex(b):

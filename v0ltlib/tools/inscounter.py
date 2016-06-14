@@ -96,3 +96,43 @@ class InstructionCounter:
         self.clean_temp()
         return max_i
 
+    def clever_bruteforce(self):
+
+        if self.length < 0:
+            warning("No length specified - guessing")
+            self.length = self.get_pass_length()
+
+        begin_with = ''
+        for i in range(0, self.length):
+            found = False
+            bf = Bruteforce(self.charset,
+                            final_length=self.length,
+                            begin_with=begin_with,
+                            max_iterations=len(self.charset))
+            iterations = -1
+            for bruted in bf.generate():
+                self.clean_temp()
+                debug('Testing {0}'.format(bruted.rstrip()))
+                self.run_pin(bruted)
+
+                with open(self.OUTPUT_FILE, "r") as f:
+                    count = f.read()
+                    count = count[len(self.PIN_STRING_BEGIN):]
+                    count = int(count)
+                    if iterations < 0:
+                        iterations = count
+                    else:
+                        if iterations < count:
+                            success("Char found: {0}".format(bruted[i]))
+                            begin_with = begin_with + bruted[i]
+                            found = True
+                            break
+            if not found:
+                fail("Char not found - Try another operation and verify charset")
+                return begin_with
+
+        success("Pass Found: {0}".format(begin_with))
+        return begin_with
+
+
+

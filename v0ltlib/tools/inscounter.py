@@ -29,7 +29,7 @@ class InstructionCounter:
                  verbose=False,
                  arch=64,
                  input_form=InputForm.ARGV,
-                 stop_at=StopAt.FIRST_CHANGE,
+                 stop_at=StopAt.HIGHEST_COUNT,
                  length=-1,
                  charset=USUAL_CHARSET):
 
@@ -39,6 +39,10 @@ class InstructionCounter:
         self.stop_at = stop_at
         self.length = length
         self.charset = charset
+
+        if length > -1 and stop_at == StopAt.HIGHEST_COUNT:
+            warning("'stop_at' should be specified for password guessing")
+            warning("Incompatible with 'length' parameter")
 
         config['is_debug'] = verbose
 
@@ -65,8 +69,9 @@ class InstructionCounter:
 
     def get_pass_length(self):
 
-        iterations = -1
-        max_i = 0
+        last = -1
+        diff = 0
+        max_i = -1
 
         for i in range(2, 100):
 
@@ -78,16 +83,18 @@ class InstructionCounter:
                     count = f.read()
                     count = count[len(self.PIN_STRING_BEGIN):]
                     count = int(count)
-                    debug("Count: {0}".format(count))
-                    if iterations < 0:
-                        iterations = count
+                    if last < 0:
+                        last = count
+                        diff = 0
                     else:
-                        if iterations < count:
-                            iterations = count
+                        if count - last > diff:
                             if self.stop_at == StopAt.FIRST_CHANGE:
                                 success('Pass length guessed: {0}'.format(i))
                                 return i
+                            diff = count - last
                             max_i = i
+                        last = count
+                    debug("Length {0}: {1} (diff: {2})".format(i, count, diff))
             except Exception as e:
                 smth_went_wrong('get_pass_length', e)
                 return -1
@@ -96,23 +103,65 @@ class InstructionCounter:
         self.clean_temp()
         return max_i
 
-    def clever_bruteforce(self):
+    def CounterAccurate(self):
 
         if self.length < 0:
-            warning("No length specified - guessing")
+            warning("no length specified - guessing")
+            self.length = self.get_pass_length()
+
+        begin_with = ''
+        for i in range(0, self.length):
+            bf = Bruteforce(self.charset,
+                            final_length=self.length,
+                            begin_with=begin_with,
+                            max_iterations=len(self.charset))
+
+            last = -1
+            diff = 0
+            max_c = -1
+            for bruted in bf.generate():
+                self.clean_temp()
+                debug('testing {0}'.format(bruted.rstrip()))
+                self.run_pin(bruted)
+
+                with open(self.OUTPUT_FILE, "r") as f:
+                    count = f.read()
+                    count = count[len(self.PIN_STRING_BEGIN):]
+                    count = int(count)
+                    if last < 0:
+                        last = count
+                    else:
+                        if count - last > diff:
+                            max_c = bruted[i]
+                            diff = count - last
+
+            success("char guessed: {0}".format(max_c))
+            begin_with = begin_with + max_c
+
+        success("pass found: {0}".format(begin_with))
+        return begin_with
+
+
+
+
+    def CounterFast(self):
+
+        if self.length < 0:
+            warning("no length specified - guessing")
             self.length = self.get_pass_length()
 
         begin_with = ''
         for i in range(0, self.length):
             found = False
-            bf = Bruteforce(self.charset,
+            bf = bruteforce(self.charset,
                             final_length=self.length,
                             begin_with=begin_with,
                             max_iterations=len(self.charset))
+
             iterations = -1
             for bruted in bf.generate():
                 self.clean_temp()
-                debug('Testing {0}'.format(bruted.rstrip()))
+                debug('testing {0}'.format(bruted.rstrip()))
                 self.run_pin(bruted)
 
                 with open(self.OUTPUT_FILE, "r") as f:
@@ -123,15 +172,15 @@ class InstructionCounter:
                         iterations = count
                     else:
                         if iterations < count:
-                            success("Char found: {0}".format(bruted[i]))
+                            success("char found: {0}".format(bruted[i]))
                             begin_with = begin_with + bruted[i]
-                            found = True
+                            found = true
                             break
             if not found:
-                fail("Char not found - Try another operation and verify charset")
+                fail("char not found")
                 return begin_with
 
-        success("Pass Found: {0}".format(begin_with))
+        success("pass found: {0}".format(begin_with))
         return begin_with
 
 

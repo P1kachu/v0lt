@@ -13,5 +13,5 @@ from v0ltlib.network.netcat import Netcat
 
 from v0ltlib.tools.shellcrafter import ShellCrafter
 from v0ltlib.tools.bruteforce import Bruteforce
-from v0ltlib.tools.inscounter import InstructionCounter
+from v0ltlib.tools.inscounter import *
 

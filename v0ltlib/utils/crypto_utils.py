@@ -1,7 +1,3 @@
-import hashlib
-import base64
-import itertools
-
 from v0ltlib.utils.v0lt_utils import red, fail
 
 '''
@@ -9,6 +5,7 @@ Some basic functions used in easy crypto challenge
 
 TODO: Make ceasar with yield, stuff like this
 '''
+
 
 def ceasar(string, offset=0):
     upper_bound = 128 - 32

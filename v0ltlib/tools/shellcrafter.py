@@ -5,13 +5,11 @@ from bs4 import BeautifulSoup
 from v0ltlib.utils.v0lt_utils import fail, yellow, cyan, find_nth, is_query_success
 
 
-
 class ShellCrafter:
-    '''
+    """
     ShellCrafter is a utility used to recover and format shellcode downloaded
     from shell-storm.org.
-    '''
-
+    """
 
     def __init__(self,
                  maximum_length,
@@ -19,7 +17,7 @@ class ShellCrafter:
                  strict=False,
                  shellcode=None,
                  script_index=-1):
-        '''
+        """
         Initialize a Shellcode crafter
         :param maximum_length: Maximum length for the shellcode
         :param *keywords:      Keywords to find the shellcode in the Shell-storm
@@ -32,7 +30,7 @@ class ShellCrafter:
                                directly in ShellCrafter
         :param script_index    Shellcode to select can be specified here (useful
                                when scripting)
-        '''
+        """
         self.maximum_shellcode_length = maximum_length
         self.keywords = keywords
         self.shellcode = shellcode
@@ -42,17 +40,16 @@ class ShellCrafter:
             fail("Please specify some shellcode or keywords")
             exit(-1)
 
-
     @staticmethod
     def principal_period(s):
-        i = (s+s).find(s, 1, -1)
+        i = (s + s).find(s, 1, -1)
         return s if i == -1 else s[:i]
 
     @staticmethod
     def delete_comments(line):
-        '''
+        """
         Delete C style comments in shellcodes
-        '''
+        """
         if "//" in line:
             comment = line.find("//")
             line = line[:comment]
@@ -65,9 +62,9 @@ class ShellCrafter:
         return line
 
     def html_to_shellcode(self, link):
-        '''
+        """
         Fetch HTML page from shell-storm and recover the shellcode
-        '''
+        """
 
         # Fetch webpage
         html = urlopen(link).read()
@@ -106,11 +103,11 @@ class ShellCrafter:
         return self.shellcode
 
     def handle_shelllist(self, response_text):
-        '''
+        """
         Print shellcodes in database that match given keywords
         VERY HACKY - Didn't find any clean way to parse this, and I FREAKIN HATE
         parsing. So let's just hope the API won't change
-        '''
+        """
 
         response_text_list = [x for x in response_text.split("\n") if x]
         shellist = []
@@ -173,12 +170,12 @@ class ShellCrafter:
         return shellist[int(user_choice)]
 
     def get_shellcodes(self, args):
-        '''
+        """
         Request shellcodes from shell-storm that match the keywords
 
         :param args: Keywords to send to the API
         :returns:    String formatted shellcodes
-        '''
+        """
         url = "http://shell-storm.org/api/?s="
 
         # Craft URL with parameters
@@ -196,7 +193,6 @@ class ShellCrafter:
         prepped = req.prepare()
         s = Session()
         resp = s.send(prepped, timeout=10, verify=True)
-        link = ""
         s = ''
         while s == '':
             if is_query_success(resp):
@@ -214,14 +210,14 @@ class ShellCrafter:
         return s
 
     def shellcode_length(self):
-        '''
+        """
         :returns: The saved shellcode length
-        '''
+        """
         return int(len(self.shellcode) / 4)
 
     def padding(self):
-        '''
+        """
         Used to pad the shellcode to the length specified in the constructor
-        '''
+        """
         pad_length = self.maximum_shellcode_length - self.shellcode_length()
         return "\\x41" * pad_length

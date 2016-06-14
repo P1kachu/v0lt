@@ -33,7 +33,7 @@ class InstructionCounter:
     :param arch:       32 or 64 bits
     :param input_form: InputForm parameter matching the password input method
     :param stop_at:    StopAt parameter for password length guessing
-    :param length:     Predefined password length
+    :param length:     Predefined password length with the \0 or \n
     :param charset:    Charset to use for bruteforcing
     """
 
@@ -130,7 +130,7 @@ class InstructionCounter:
 
         success('Pass length guessed: {0}'.format(max_i))
         self.clean_temp()
-        return max_i
+        return max_i + 1
 
     def Accurate(self):
         """
@@ -143,7 +143,7 @@ class InstructionCounter:
             self.length = self.get_pass_length()
 
         begin_with = ''
-        for i in range(0, self.length + 1):
+        for i in range(0, self.length):
             bf = Bruteforce(self.charset,
                             final_length=self.length,
                             begin_with=begin_with,
@@ -186,9 +186,9 @@ class InstructionCounter:
             self.length = self.get_pass_length()
 
         begin_with = ''
-        for i in range(0, self.length + 1):
+        for i in range(0, self.length):
             found = False
-            bf = bruteforce(self.charset,
+            bf = Bruteforce(self.charset,
                             final_length=self.length,
                             begin_with=begin_with,
                             max_iterations=len(self.charset))
@@ -209,7 +209,7 @@ class InstructionCounter:
                         if iterations < count:
                             success("char found: {0}".format(bruted[i]))
                             begin_with = begin_with + bruted[i]
-                            found = true
+                            found = True
                             break
             if not found:
                 fail("char not found")

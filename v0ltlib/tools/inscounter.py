@@ -4,16 +4,37 @@ from v0ltlib.utils.v0lt_utils import *
 from v0ltlib.tools.bruteforce import Bruteforce
 
 class InputForm:
+    """
+    Enumeration regarding the password input
+    STDIN means the password is given to the program with a scanf/fgets function
+    ARGV  means it is given as parameter
+    """
+
     STDIN = 1
     ARGV = 2
 
 class StopAt:
+    """
+    HIGHEST_COUNT will test all possible values before selecting the one that
+    matches best.
+    FIRST_CHANGE means the counter with stop directly when the instruction count
+    differ.
+    """
     HIGHEST_COUNT = 1
     FIRST_CHANGE = 2
 
 class InstructionCounter:
     """
     Password cracker using instruction counting tool based on Intel Pin
+
+    :param pin_path:   Absolute path of the pin executable
+    :param binary:     Binary to analyze
+    :param verbose:    If True, prints debug messages
+    :param arch:       32 or 64 bits
+    :param input_form: InputForm parameter matching the password input method
+    :param stop_at:    StopAt parameter for password length guessing
+    :param length:     Predefined password length
+    :param charset:    Charset to use for bruteforcing
     """
 
     PIN64_COMMAND = '{0}pin -t {0}source/tools/ManualExamples/obj-intel64/inscount0.so -- '
@@ -25,7 +46,7 @@ class InstructionCounter:
 
     def __init__(self,
                  pin_path,
-                 binary_name,
+                 binary,
                  verbose=False,
                  arch=64,
                  input_form=InputForm.ARGV,
@@ -33,16 +54,12 @@ class InstructionCounter:
                  length=-1,
                  charset=USUAL_CHARSET):
 
-        self.binary = binary_name
+        self.binary = binary
         self.arch = arch
         self.input_form = input_form
         self.stop_at = stop_at
         self.length = length
         self.charset = charset
-
-        if length > -1 and stop_at == StopAt.HIGHEST_COUNT:
-            warning("'stop_at' should be specified for password guessing")
-            warning("Incompatible with 'length' parameter")
 
         config['is_debug'] = verbose
 
@@ -52,6 +69,9 @@ class InstructionCounter:
             self.cmd = self.PIN64_COMMAND.format(pin_path)
 
     def clean_temp(self):
+        """
+        Clean temporary files
+        """
         if os.path.isfile(self.TMP_BRUTE):
             os.remove(self.TMP_BRUTE)
         if os.path.isfile(self.OUTPUT_FILE):
@@ -60,6 +80,10 @@ class InstructionCounter:
             os.remove('pin.log')
 
     def run_pin(self, string):
+        """
+        Run pin with the specified command
+        """
+
         if self.input_form == InputForm.ARGV:
             cmd = '{0} {1} {2}'.format(self.cmd, self.binary, string)
             os.system(cmd)
@@ -68,6 +92,11 @@ class InstructionCounter:
             os.system(cmd)
 
     def get_pass_length(self):
+        """
+        Determine the password's length
+
+        :returns: The guessed length
+        """
 
         last = -1
         diff = 0
@@ -103,14 +132,18 @@ class InstructionCounter:
         self.clean_temp()
         return max_i
 
-    def CounterAccurate(self):
+    def Accurate(self):
+        """
+        Counter that will try to determine the password accurately by
+        bruteforcing every char with the complete charset
+        """
 
         if self.length < 0:
             warning("no length specified - guessing")
             self.length = self.get_pass_length()
 
         begin_with = ''
-        for i in range(0, self.length):
+        for i in range(0, self.length + 1):
             bf = Bruteforce(self.charset,
                             final_length=self.length,
                             begin_with=begin_with,
@@ -142,16 +175,18 @@ class InstructionCounter:
         return begin_with
 
 
-
-
-    def CounterFast(self):
+    def Fast(self):
+        """
+        Counter that will try to determine the password by checking the first
+        count change. Faster, but often mistaking
+        """
 
         if self.length < 0:
             warning("no length specified - guessing")
             self.length = self.get_pass_length()
 
         begin_with = ''
-        for i in range(0, self.length):
+        for i in range(0, self.length + 1):
             found = False
             bf = bruteforce(self.charset,
                             final_length=self.length,

@@ -3,6 +3,9 @@
 Only includes major features and changes. Bugfixes and
 minor changes are omitted.
 
+## 1.5
+- Add InstructionCounter
+
 ## 1.4
 - ShellHack becomes ShellCrafter
 - Better ShellCrafter shellcode recovering

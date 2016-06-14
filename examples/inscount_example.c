@@ -74,7 +74,10 @@ int main(int argc, char **argv)
                 if (argv[1][i++] != get_char(25, 32))
                         return -1;
 
+                printf("Congrats!\n");
+                printf("The flag is %s\n", argv[1]);
 
+                return 0;
         }
 
         return -2;

@@ -2,7 +2,7 @@ Tools
 =====
 
 ##ShellCrafter
-Used to send easily shellcodes via netcat
+Craft shellcodes from ShellStorm, and send them easily via ShellCat!
 
 ```Python
 >>> from v0lt import *

@@ -72,12 +72,8 @@ class InstructionCounter:
         """
         Clean temporary files
         """
-        if os.path.isfile(self.TMP_BRUTE):
-            os.remove(self.TMP_BRUTE)
-        if os.path.isfile(self.OUTPUT_FILE):
-            os.remove(self.OUTPUT_FILE)
-        if os.path.isfile('pin.log'):
-            os.remove('pin.log')
+        tmp = [self.TMP_BRUTE, self.OUTPUT_FILE, 'pin.log']
+        [ os.remove(f) for f in tmp if os.path.isfile(f) ]
 
     def run_pin(self, string):
         """
@@ -109,8 +105,7 @@ class InstructionCounter:
 
             try:
                 with open(self.OUTPUT_FILE, 'r') as f:
-                    count = f.read()
-                    count = count[len(self.PIN_STRING_BEGIN):]
+                    count = f.read()[len(self.PIN_STRING_BEGIN):]
                     count = int(count)
                     if last < 0:
                         last = count

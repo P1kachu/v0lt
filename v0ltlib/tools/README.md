@@ -67,7 +67,7 @@ Defeat binaries using instruction counting
 
 ```python
 >>> from v0lt import *
->>> counter = InstructionCounter(pin_path='/home/pin', '/home/binary')
+>>> counter = InstructionCounter('/home/pin', '/home/binary')
 >>> counter.Accurate()
 [!]WARNING  no length specified - guessing
 [+]SUCCESS  Pass length guessed: 22

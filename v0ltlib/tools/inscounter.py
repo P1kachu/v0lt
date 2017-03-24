@@ -27,14 +27,15 @@ class InstructionCounter:
     """
     Password cracker using instruction counting tool based on Intel Pin
 
-    :param pin_path:   Absolute path of the pin executable
-    :param binary:     Binary to analyze
-    :param verbose:    If True, prints debug messages
-    :param arch:       32 or 64 bits
-    :param input_form: InputForm parameter matching the password input method
-    :param stop_at:    StopAt parameter for password length guessing
-    :param length:     Predefined password length with the \0 or \n
-    :param charset:    Charset to use for bruteforcing
+    :param pin_path:    Absolute path of the pin executable
+    :param binary:      Binary to analyze
+    :param binary_args: Arguments for binary to analyze
+    :param verbose:     If True, prints debug messages
+    :param arch:        32 or 64 bits
+    :param input_form:  InputForm parameter matching the password input method
+    :param stop_at:     StopAt parameter for password length guessing
+    :param length:      Predefined password length with the \0 or \n
+    :param charset:     Charset to use for bruteforcing
     """
 
     PIN64_COMMAND = '{0}pin -t {0}source/tools/ManualExamples/obj-intel64/inscount0.so -- '
@@ -47,6 +48,7 @@ class InstructionCounter:
     def __init__(self,
                  pin_path,
                  binary,
+                 binary_args="",
                  verbose=False,
                  arch=64,
                  input_form=InputForm.ARGV,
@@ -55,11 +57,16 @@ class InstructionCounter:
                  charset=USUAL_CHARSET):
 
         self.binary = binary
+        self.binary_args = binary_args
         self.arch = arch
         self.input_form = input_form
         self.stop_at = stop_at
         self.length = length
         self.charset = charset
+
+        pin_executable = pin_path + "pin"
+        assert(os.path.isfile(pin_executable) and os.access(pin_executable, os.X_OK))
+        assert(os.path.isfile(binary) and os.access(binary, os.X_OK))
 
         config['is_debug'] = verbose
 
@@ -81,10 +88,10 @@ class InstructionCounter:
         """
 
         if self.input_form == InputForm.ARGV:
-            cmd = '{0} {1} {2}'.format(self.cmd, self.binary, string)
+            cmd = '{0} {1} {2} {3}'.format(self.cmd, self.binary, self.binary_args, string)
             os.system(cmd)
         else:
-            cmd = '/bin/bash -c "{0} {1} <<< {2}"'.format(self.cmd, self.binary, string)
+            cmd = '/bin/bash -c "{0} {1} {2} <<< {3}"'.format(self.cmd, self.binary, self.binary_args, string)
             os.system(cmd)
 
     def get_pass_length(self):
@@ -151,7 +158,6 @@ class InstructionCounter:
             max_c = -1
             for bruted in bf.generate():
                 self.clean_temp()
-                debug('testing {0}'.format(bruted.rstrip()))
                 self.run_pin(bruted)
 
                 with open(self.OUTPUT_FILE, "r") as f:
@@ -164,6 +170,7 @@ class InstructionCounter:
                         if count - last > diff:
                             max_c = bruted[i]
                             diff = count - last
+                    debug('testing {0} ({1} - diff: {2})'.format(bruted.rstrip(), count, diff))
 
             success("char guessed: {0}".format(max_c))
             begin_with = begin_with + max_c

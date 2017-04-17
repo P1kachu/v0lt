@@ -124,7 +124,7 @@ class InstructionCounter:
                                 return i
                             diff = count - last
                             max_i = i
-                            debug(" ! New max")
+                            debug("! New max")
                         last = count
                     debug("Length {0}: {1} (max diff: {2})".format(i, count, diff))
             except Exception as e:
@@ -171,7 +171,7 @@ class InstructionCounter:
                         if count - last > diff:
                             max_c = bruted[i]
                             diff = count - last
-                            debug(" ! New max")
+                            debug("! New max")
                     debug('testing {0} ({1} - max diff: {2})'.format(bruted.rstrip(), count, diff))
 
             success("char guessed: {0}".format(max_c))

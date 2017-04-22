@@ -36,6 +36,9 @@ class InstructionCounter:
     :param stop_at:     StopAt parameter for password length guessing
     :param length:      Predefined password length with the \0 or \n
     :param charset:     Charset to use for bruteforcing
+    :param fixed_chars: Indicates which characters are already known
+                        This requires the length to be known. If a character is
+                        unknown, it should be specified as '`'
     """
 
     PIN64_COMMAND = '{0}pin -t {0}source/tools/ManualExamples/obj-intel64/inscount0.so -- '
@@ -43,7 +46,7 @@ class InstructionCounter:
     OUTPUT_FILE = 'inscount.out'
     TMP_BRUTE = 'tmp_bruteforce'
     PIN_STRING_BEGIN = 'Count '
-    USUAL_CHARSET = "._abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]-=+*^%$@!."
+    USUAL_CHARSET = "._abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]-=+*^%$@!?."
 
     def __init__(self,
                  pin_path,
@@ -54,7 +57,8 @@ class InstructionCounter:
                  input_form=InputForm.ARGV,
                  stop_at=StopAt.HIGHEST_COUNT,
                  length=-1,
-                 charset=USUAL_CHARSET):
+                 charset=USUAL_CHARSET,
+                 fixed_chars=""):
 
         self.binary = binary
         self.binary_args = binary_args
@@ -63,6 +67,8 @@ class InstructionCounter:
         self.stop_at = stop_at
         self.length = length
         self.charset = charset
+        self.fixed_chars = fixed_chars
+        assert(fixed_chars == "" or length != -1)
 
         pin_executable = pin_path + "pin"
         assert(os.path.isfile(pin_executable) and os.access(pin_executable, os.X_OK))
@@ -149,6 +155,14 @@ class InstructionCounter:
 
         begin_with = ''
         for i in range(0, self.length):
+
+            # The character is one of the known ones
+            if self.fixed_chars[i] != '`':
+                begin_with = begin_with + self.fixed_chars[i]
+                success("char fixed:   {0} -> {1}".format(self.fixed_chars[i],
+                    begin_with))
+                continue
+
             bf = Bruteforce(self.charset,
                             final_length=self.length,
                             begin_with=begin_with,
@@ -165,66 +179,27 @@ class InstructionCounter:
                     count = f.read()
                     count = count[len(self.PIN_STRING_BEGIN):]
                     count = int(count)
+                    debug('testing {0} ({1} - max diff: {2})'.format(
+                        bruted.rstrip(),
+                        count,
+                        diff))
                     if last < 0:
                         last = count
                     else:
-                        if count - last > diff:
-                            max_c = bruted[i]
-                            diff = count - last
-                            debug("! New max")
-                    debug('testing {0} ({1} - max diff: {2})'.format(bruted.rstrip(), count, diff))
+                        if self.stop_at == StopAt.FIRST_CHANGE:
+                            if count != last:
+                                max_c = bruted[i]
+                                debug("! New max")
+                                break
+                        else:
+                            if abs(count - last) > diff:
+                                max_c = bruted[i]
+                                diff = abs(count - last)
+                                debug("! New max")
 
-            success("char guessed: {0}".format(max_c))
             begin_with = begin_with + max_c
+            success("char guessed: {0} -> {1}".format(max_c, begin_with))
 
         success("pass found: {0}".format(begin_with))
         return begin_with
-
-
-    def Fast(self):
-        """
-        Counter that will try to determine the password by checking the first
-        count change. Faster, but often mistaking
-        """
-
-        if self.length < 0:
-            warning("no length specified - guessing")
-            self.length = self.get_pass_length()
-            if self.length < 0:
-                return None
-
-        begin_with = ''
-        for i in range(0, self.length):
-            found = False
-            bf = Bruteforce(self.charset,
-                            final_length=self.length,
-                            begin_with=begin_with,
-                            max_iterations=len(self.charset))
-
-            iterations = -1
-            for bruted in bf.generate():
-                self.clean_temp()
-                debug('testing {0}'.format(bruted.rstrip()))
-                self.run_pin(bruted)
-
-                with open(self.OUTPUT_FILE, "r") as f:
-                    count = f.read()
-                    count = count[len(self.PIN_STRING_BEGIN):]
-                    count = int(count)
-                    if iterations < 0:
-                        iterations = count
-                    else:
-                        if iterations < count:
-                            success("char found: {0}".format(bruted[i]))
-                            begin_with = begin_with + bruted[i]
-                            found = True
-                            break
-            if not found:
-                fail("char not found")
-                return begin_with
-
-        success("pass found: {0}".format(begin_with))
-        return begin_with
-
-
 

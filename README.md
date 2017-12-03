@@ -3,6 +3,8 @@
 v0lt
 ====
 
+[![Rawsec's CyberSecurity Inventory](http://list.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_flat-square.svg)](http://list.rawsec.ml/tools.html#v0lt)
+
 v0lt is an attempt to regroup every tool I used/use/will use in security CTF, Python style.
 A lot of exercises were solved using bash scripts but Python may be
 more flexible, that's why.

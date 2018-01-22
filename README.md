@@ -11,6 +11,8 @@ more flexible, that's why.
 Nothing to do with Gallopsled. It's a toy toolkit, with small but
 specific utils only.
 
+This project is not maintained anymore, since the utils themselves are small enough to work almost all the time without the need of maintaining anything. Feel free to submit PRs if you want however :)
+
 ## Requirements and Installation
 #### Dependencies:
 * Libmagic
